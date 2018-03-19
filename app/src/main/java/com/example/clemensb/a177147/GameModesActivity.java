@@ -2,24 +2,23 @@ package com.example.clemensb.a177147;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 
-public class MainActivity extends Activity {
+public class GameModesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button clickButton = (Button) findViewById(R.id.startButton);
+        setContentView(R.layout.activity_gamemodes);
+        Button clickButton = (Button) findViewById(R.id.classic);
         clickButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
-                Intent intent = new Intent(MainActivity.this, GameModesActivity.class);
+                Intent intent = new Intent(GameModesActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
         });
     }
+
 }

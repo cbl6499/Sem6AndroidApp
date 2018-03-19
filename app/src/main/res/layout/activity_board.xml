@@ -7,4 +7,24 @@
     android:background="@drawable/gradient"
     tools:context="com.example.clemensb.a177147.BoardActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Classic(4x4)"
+            android:textSize="30dp"
+        />
+
+
+
+    </LinearLayout>
+
+
+
+
 </android.support.constraint.ConstraintLayout>
