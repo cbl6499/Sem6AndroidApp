@@ -24,6 +24,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button hsButton = (Button) findViewById(R.id.highscoreButton);
+        hsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                Intent intent = new Intent(MainActivity.this, HSActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
