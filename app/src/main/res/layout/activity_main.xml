@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="#E0E0E0"
     tools:context="com.example.clemensb.a177147.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="106dp"
         android:layout_marginTop="99dp"
-        android:text="177147"
+        android:src="@drawable/pic2325525"
         app:layout_constraintBottom_toTopOf="@+id/startButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,8 +21,8 @@
 
     <Button
     android:id="@+id/startButton"
-    android:layout_width="200dp"
-    android:layout_height="50dp"
+    android:layout_width="300dp"
+    android:layout_height="75dp"
     android:layout_marginBottom="47dp"
     android:layout_marginEnd="42dp"
     android:layout_marginStart="42dp"
@@ -30,25 +30,25 @@
     app:layout_constraintBottom_toTopOf="@+id/resumeButton"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/textView" />
+    app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <Button
         android:id="@+id/resumeButton"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="49dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"
         android:text="Resume last Game"
-        app:layout_constraintBottom_toTopOf="@+id/highscoreButtonButton"
+        app:layout_constraintBottom_toTopOf="@+id/highscoreButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startButton" />
 
     <Button
         android:id="@+id/highscoreButton"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="49dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"
@@ -60,8 +60,8 @@
 
     <Button
         android:id="@+id/exitButton"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="122dp"
         android:layout_marginEnd="42dp"
         android:layout_marginStart="42dp"

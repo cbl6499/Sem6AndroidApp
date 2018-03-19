@@ -13,25 +13,29 @@
         android:label="177147"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
+
+        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".BoardActivity"
             android:label="177147"
-            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
 
         <activity android:name=".GameModesActivity"
             android:label="177147"
-            android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
 
         <activity
             android:name=".StartActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:label="@string/title_activity_login">
         <!--    <intent-filter>
                 <action android:name="android.intent.action.START" />

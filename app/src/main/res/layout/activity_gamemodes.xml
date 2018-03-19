@@ -4,40 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient"
+    android:background="#E0E0E0"
     tools:context="com.example.clemensb.a177147.GameModesActivity">
 
-     <Button
-        android:id="@+id/classic"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="49dp"
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="106dp"
         android:layout_marginTop="99dp"
-        android:text="Classic"
+        android:src="@drawable/pic2325525"
+        app:layout_constraintBottom_toTopOf="@+id/classic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/classic"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="47dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:text="Classic"
+        app:layout_constraintBottom_toTopOf="@+id/hardcore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <Button
         android:id="@+id/hardcore"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="49dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
         android:text="Hardcore"
-        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintBottom_toTopOf="@+id/veganmode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/classic" />
 
     <Button
-        android:id="@+id/backButton"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="Back"
-        android:layout_marginBottom="99dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/veganmode"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="49dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:text="Vegan Mode"
+        app:layout_constraintBottom_toTopOf="@+id/backbutton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hardcore" />
+
+    <Button
+        android:id="@+id/backbutton"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginBottom="122dp"
+        android:layout_marginEnd="42dp"
+        android:layout_marginStart="42dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/veganmode" />
 
 </android.support.constraint.ConstraintLayout>
