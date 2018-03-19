@@ -25,6 +25,7 @@
             android:label="177147"
             android:theme="@android:style/Theme.Black.NoTitleBar"></activity>
 
+        </activity>
     </application>
 
 </manifest>
