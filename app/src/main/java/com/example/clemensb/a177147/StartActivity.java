@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,30 +29,39 @@ public class StartActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         //updateUI(currentUser);
     }
 
-
+    private EditText email;
+    private EditText passwd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        Button clickButton = (Button) findViewById(R.id.startButton);
+        email = (EditText) findViewById(R.id.email);
+        passwd = (EditText) findViewById(R.id.password);
+        Button clickButton = (Button) findViewById(R.id.email_sign_in_button);
         clickButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
-                Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                startActivity(intent);
+                signIn();
+                if(getCurrentUser() != null) {
+                    Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
 
     }
 
-
-    public void signIn(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
+    public boolean signIn(){
+        mAuth.signInWithEmailAndPassword(email.getText().toString(), passwd.getText().toString())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -69,6 +79,10 @@ public class StartActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+        if(getCurrentUser() != null){
+            return true;
+        }
+        return false;
     }
 
     //TODO: nur platzhalter wegen fehler
@@ -76,6 +90,9 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
+    private FirebaseUser getCurrentUser(){
+        return mAuth.getCurrentUser();
+    }
     public String getUserName(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = "";
