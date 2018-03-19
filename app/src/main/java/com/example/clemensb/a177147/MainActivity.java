@@ -93,5 +93,7 @@ public class MainActivity extends AppCompatActivity {
         return uid;
     }
 
-
+    public void signOut(){
+        FirebaseAuth.getInstance().signOut();
+    }
 }
