@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">177147</string>
+    <string name="title_activity_login">Anmelden</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="error_invalid_email">Diese E-Mail Adresse ist nicht gültig</string>
+    <string name="action_sign_in_short">Anmelden</string>
+    <string name="action_sign_in">Anmelden oder Registrieren</string>
+    <string name="error_invalid_password">Passwort zu kurz</string>
+    <string name="error_incorrect_password">Passwort nicht korrekt</string>
+    <string name="error_field_required">Dies ist ein Pflichtfeld</string>
+</resources>
