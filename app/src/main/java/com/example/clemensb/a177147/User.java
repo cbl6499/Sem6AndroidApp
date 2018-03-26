@@ -26,8 +26,6 @@ public class User implements Comparable<User>{
         this.score = score;
     }
 
-
-
     public String getUserName() {
         return userName;
     }
@@ -43,10 +41,10 @@ public class User implements Comparable<User>{
         return false;
     }
 
-
     public String toString(){
         return userName + ": " + score;
     }
+
     @Override
     public int compareTo(@NonNull User user) {
         return user.score - score;
