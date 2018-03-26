@@ -12,13 +12,23 @@ public class GameModesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamemodes);
-        Button clickButton = (Button) findViewById(R.id.classic);
-        clickButton.setOnClickListener(new View.OnClickListener() {
+
+        Button classicGameModeButton = (Button) findViewById(R.id.classic);
+        classicGameModeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
                 Intent intent = new Intent(GameModesActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
         });
+
+        Button backButton = (Button) findViewById(R.id.backbutton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(GameModesActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }) ;
+
     }
 
 }

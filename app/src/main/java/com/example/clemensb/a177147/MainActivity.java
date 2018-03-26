@@ -34,6 +34,13 @@ public class MainActivity extends Activity {
             }
         });
 
+        Button exitButton = (Button) findViewById(R.id.exitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                android.os.Process.killProcess(android.os.Process.myPid());
+            }
+        });
+
     }
 
 }
