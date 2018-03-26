@@ -55,7 +55,6 @@ public class HSActivity extends AppCompatActivity {
             }
         });
 
-
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

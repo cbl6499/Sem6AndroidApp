@@ -44,6 +44,9 @@ public class User implements Comparable<User>{
     }
 
 
+    public String toString(){
+        return userName + ": " + score;
+    }
     @Override
     public int compareTo(@NonNull User user) {
         return user.score - score;
