@@ -9,8 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +43,19 @@ public class HSActivity extends AppCompatActivity {
             }
         });
 
+
+        mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public void addUser(){
@@ -47,7 +63,7 @@ public class HSActivity extends AppCompatActivity {
         user.setUserName(userName.getText().toString());
         user.setScore(Integer.parseInt(score.getText().toString()));*/
 
-        System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
+        //System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
 
         mUserRef.child(userName.getText().toString()).setValue( new User(Integer.parseInt(score.getText().toString())));
 
