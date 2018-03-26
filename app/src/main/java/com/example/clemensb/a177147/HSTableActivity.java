@@ -32,6 +32,7 @@ public class HSTableActivity extends AppCompatActivity {
     ListView yourHS;
     ListView list;
     String [] hsStringList;
+    String [] yourHSList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +69,14 @@ public class HSTableActivity extends AppCompatActivity {
                 sortUsers();
 
                 hsStringList = new String[users.size()];
-                for(int i = 0; i<users.size(); i++){
-                    hsStringList[i] = "Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
-                    System.out.println(hsStringList[i]);
+                if(users.size()>= 5){
+                    for(int i = 0; i < 5; i++){
+                        hsStringList[i] = "Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                    }
+                }else{
+                    for(int i = 0; i<users.size(); i++){
+                        hsStringList[i] = "Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                    }
                 }
 
 
@@ -84,12 +90,6 @@ public class HSTableActivity extends AppCompatActivity {
 
             }
         });
-
-
-        /*for(int i = 0; i < 10; i++){
-            hsList.add(users.get(i));
-        }*/
-        //ListAdapter adapter = new ArrayAdapter<User>(HSTableActivity.this, android.R.layout.simple_list_item_1, users);
     }
 
     public void sortUsers(){
