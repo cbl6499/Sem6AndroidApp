@@ -14,6 +14,8 @@ public class User {
         score = s;
     }
 
+    public User(){}
+
     public Integer getScore() {
         return score;
     }

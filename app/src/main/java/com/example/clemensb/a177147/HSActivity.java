@@ -57,9 +57,13 @@ public class HSActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
                 for(DataSnapshot ds : childs){
-                    System.out.println("Test" + ds.getValue() + " Parent: " + ds.getKey());
+                    //System.out.println("Test" + ds.getValue() + " Parent: " + ds.getKey());
+                    User newUser = new User();
+                    newUser.setUserName(ds.getKey());
+                    newUser.setScore(ds.getValue(User.class).getScore());
+                    System.out.println(newUser.getUserName() + " : " + newUser.getScore());
                 }
-                System.out.println("Datasnapshot: " + dataSnapshot.getValue());
+                //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
 
             @Override
