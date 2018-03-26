@@ -123,8 +123,8 @@ public class HSActivity extends AppCompatActivity {
 
     public void sortUsers(){
         Collections.sort(users);
-  //      for(User u : users){
-  //          System.out.println(u.getUserName() + ": " + u.getScore());
-   //     }
+        for(int i = 0; i < users.size(); i++){
+            System.out.println("Rank "  + i + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
+        }
     }
 }
