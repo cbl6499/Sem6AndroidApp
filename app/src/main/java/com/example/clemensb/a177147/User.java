@@ -1,10 +1,12 @@
 package com.example.clemensb.a177147;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by ClemensB on 19.03.18.
  */
 
-public class User {
+public class User implements Comparable<User>{
 
     public String userName;
     public Integer score;
@@ -39,5 +41,11 @@ public class User {
             return true;
         }
         return false;
+    }
+
+
+    @Override
+    public int compareTo(@NonNull User user) {
+        return user.score - score;
     }
 }

@@ -16,7 +16,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -66,6 +68,8 @@ public class HSActivity extends AppCompatActivity {
                     System.out.println(newUser.getUserName() + " : " + newUser.getScore());
                     users.add(newUser);
                 }
+                System.out.println("Sorted: ");
+                sortUsers();
                 //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
 
@@ -103,6 +107,7 @@ public class HSActivity extends AppCompatActivity {
             System.out.println("New User");
             mUserRef.child(userName.getText().toString()).setValue(new User(Integer.parseInt(score.getText().toString())));
         }
+
         //System.out.println("Key: " + mUserRef.child(userName.getText().toString()).child("score").getRef().toString());
 
         /*if(!TextUtils.isEmpty(user.getUserName()) || user.getScore().equals(null)){
@@ -114,5 +119,12 @@ public class HSActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "A field is empty", Toast.LENGTH_LONG).show();
         }*/
+    }
+
+    public void sortUsers(){
+        Collections.sort(users);
+  //      for(User u : users){
+  //          System.out.println(u.getUserName() + ": " + u.getScore());
+   //     }
     }
 }
