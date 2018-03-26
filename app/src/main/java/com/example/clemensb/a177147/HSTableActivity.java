@@ -35,6 +35,7 @@ public class HSTableActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("TEST");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hstable);
         users = new ArrayList<>();
@@ -53,6 +54,7 @@ public class HSTableActivity extends AppCompatActivity {
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                users.clear();
                 Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
                 for(DataSnapshot ds : childs){
                     User newUser = new User();
@@ -61,6 +63,20 @@ public class HSTableActivity extends AppCompatActivity {
                     //System.out.println(newUser.getUserName() + " : " + newUser.getScore());
                     users.add(newUser);
                 }
+
+                System.out.println("Sorted: ");
+                sortUsers();
+
+                hsStringList = new String[users.size()];
+                for(int i = 0; i<users.size(); i++){
+                    hsStringList[i] = "Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                    System.out.println(hsStringList[i]);
+                }
+
+
+                List<String> listElementArray = new ArrayList<String>(Arrays.asList(hsStringList));
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(HSTableActivity.this, android.R.layout.simple_list_item_1, listElementArray);
+                list.setAdapter(adapter);
             }
 
             @Override
@@ -68,27 +84,19 @@ public class HSTableActivity extends AppCompatActivity {
 
             }
         });
-        System.out.println("Sorted: ");
-        sortUsers();
 
-        hsStringList = new String[users.size()];
-        for(int i = 0; i<users.size(); i++){
-            hsStringList[i] = i + ":  "  + users.get(i).toString();
-        }
-        System.out.println(hsStringList);
-
-        List<String> listElementArray = new ArrayList<String>(Arrays.asList(hsStringList));
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(HSTableActivity.this, android.R.layout.simple_list_item_1, listElementArray);
 
         /*for(int i = 0; i < 10; i++){
             hsList.add(users.get(i));
         }*/
         //ListAdapter adapter = new ArrayAdapter<User>(HSTableActivity.this, android.R.layout.simple_list_item_1, users);
-        list.setAdapter(adapter);
     }
 
     public void sortUsers(){
         Collections.sort(users);
+        /*for(int i = 0; i < users.size(); i++){
+            System.out.println("Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
+        }*/
     }
 
 }

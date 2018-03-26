@@ -73,11 +73,11 @@ public class HSActivity extends AppCompatActivity {
                     User newUser = new User();
                     newUser.setUserName(ds.getKey());
                     newUser.setScore(ds.getValue(User.class).getScore());
-                    System.out.println(newUser.getUserName() + " : " + newUser.getScore());
+                    //System.out.println(newUser.getUserName() + " : " + newUser.getScore());
                     users.add(newUser);
                 }
-                System.out.println("Sorted: ");
-                sortUsers();
+                //System.out.println("Sorted: ");
+                //sortUsers();
                 //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
 
@@ -90,9 +90,9 @@ public class HSActivity extends AppCompatActivity {
     }
 
     public void addUser(){
-        /*user = new User();
+        user = new User();
         user.setUserName(userName.getText().toString());
-        user.setScore(Integer.parseInt(score.getText().toString()));*/
+        user.setScore(Integer.parseInt(score.getText().toString()));
 
         System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
         User currentUser = new User();
@@ -118,7 +118,7 @@ public class HSActivity extends AppCompatActivity {
 
         //System.out.println("Key: " + mUserRef.child(userName.getText().toString()).child("score").getRef().toString());
 
-        /*if(!TextUtils.isEmpty(user.getUserName()) || user.getScore().equals(null)){
+        if(!TextUtils.isEmpty(user.getUserName()) || user.getScore().equals(null)){
             //String id = mUserRef.push().getKey();
 
             mUserRef.setValue(user);
@@ -126,13 +126,13 @@ public class HSActivity extends AppCompatActivity {
             Toast.makeText(this, "User Highscore added", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this, "A field is empty", Toast.LENGTH_LONG).show();
-        }*/
+        }
     }
 
     public void sortUsers(){
         Collections.sort(users);
-        for(int i = 0; i < users.size(); i++){
+        /*for(int i = 0; i < users.size(); i++){
             System.out.println("Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
-        }
+        }*/
     }
 }
