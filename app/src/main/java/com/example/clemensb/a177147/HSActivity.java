@@ -65,9 +65,6 @@ public class HSActivity extends AppCompatActivity {
                     newUser.setScore(ds.getValue(User.class).getScore());
                     System.out.println(newUser.getUserName() + " : " + newUser.getScore());
                     users.add(newUser);
-
-
-
                 }
                 //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
