@@ -94,7 +94,7 @@ public class HSActivity extends AppCompatActivity {
         user.setUserName(userName.getText().toString());
         user.setScore(Integer.parseInt(score.getText().toString()));
 
-        System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
+        //System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
         User currentUser = new User();
         boolean userFound = false;
         for(User u : users){
