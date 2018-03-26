@@ -14,12 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            >
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,26 +30,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".BoardActivity"
+        <activity
+            android:name=".BoardActivity"
             android:label="177147"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            ></activity>
-
-        <activity android:name=".GameModesActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".GameModesActivity"
             android:label="177147"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".StartActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:label="@string/title_activity_login">
-        <!--    <intent-filter>
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+
+            <!--
+                <intent-filter>
                 <action android:name="android.intent.action.START" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
+        <activity android:name=".HSTableActivity"></activity>
     </application>
 
 </manifest>

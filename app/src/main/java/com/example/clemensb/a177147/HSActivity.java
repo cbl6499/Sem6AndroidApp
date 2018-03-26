@@ -25,6 +25,7 @@ import java.util.Map;
 public class HSActivity extends AppCompatActivity {
 
     Button submit;
+    Button hsListButton;
     EditText userName;
     EditText score;
     List<User> users;
@@ -45,6 +46,14 @@ public class HSActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
                 addUser();
+            }
+        });
+
+        hsListButton = (Button) findViewById(R.id.hsListButton);
+        hsListButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                Intent intent = new Intent(HSActivity.this, HSTableActivity.class);
+                startActivity(intent);
             }
         });
 
