@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import java.util.Locale;
+
 public class MainActivity extends Activity {
 
 
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
         });
-
+        System.out.println(Locale.getDefault().getDisplayLanguage().toString());
     }
 
 }
