@@ -43,6 +43,13 @@ public class HSActivity extends AppCompatActivity {
             }
         });
 
+        Button backButton = (Button) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick (View v){
+                finish();
+            }
+        });
+
 
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,7 +70,7 @@ public class HSActivity extends AppCompatActivity {
         user.setUserName(userName.getText().toString());
         user.setScore(Integer.parseInt(score.getText().toString()));*/
 
-        //System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
+        System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
 
         mUserRef.child(userName.getText().toString()).setValue( new User(Integer.parseInt(score.getText().toString())));
 
