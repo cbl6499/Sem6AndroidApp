@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class HSActivity extends AppCompatActivity {
@@ -47,7 +48,11 @@ public class HSActivity extends AppCompatActivity {
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println(dataSnapshot.getValue());
+                Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
+                for(DataSnapshot ds : childs){
+                    System.out.println("Test" + ds.getValue() + " Parent: " + ds.getKey());
+                }
+                System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
 
             @Override
@@ -66,7 +71,7 @@ public class HSActivity extends AppCompatActivity {
         //System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
 
         mUserRef.child(userName.getText().toString()).setValue( new User(Integer.parseInt(score.getText().toString())));
-
+        //System.out.println("Key: " + mUserRef.child(userName.getText().toString()).child("score").getRef().toString());
 
         /*if(!TextUtils.isEmpty(user.getUserName()) || user.getScore().equals(null)){
             //String id = mUserRef.push().getKey();
