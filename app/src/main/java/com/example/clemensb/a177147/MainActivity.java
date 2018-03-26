@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
             }
         });
         System.out.println(Locale.getDefault().getDisplayLanguage().toString());
+        System.out.println(getString(R.string.app_name));
     }
 
 }
