@@ -68,15 +68,17 @@ public class HSTableActivity extends AppCompatActivity {
                 System.out.println("Sorted: ");
                 sortUsers();
 
-                hsStringList = new String[users.size()];
+
                 int size;
                 if(users.size()>= 5){
                     size = 5;
                 }else{
                     size = users.size();
                 }
+                hsStringList = new String[size];
                 for(int i = 0; i < size; i++){
                     hsStringList[i] = "Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                    System.out.println("Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
                 }
 
 
@@ -94,9 +96,6 @@ public class HSTableActivity extends AppCompatActivity {
 
     public void sortUsers(){
         Collections.sort(users);
-        /*for(int i = 0; i < users.size(); i++){
-            System.out.println("Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
-        }*/
     }
 
 }

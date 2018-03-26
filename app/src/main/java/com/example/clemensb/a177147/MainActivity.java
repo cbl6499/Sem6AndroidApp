@@ -42,8 +42,8 @@ public class MainActivity extends Activity {
                 android.os.Process.killProcess(android.os.Process.myPid());
             }
         });
-        System.out.println(Locale.getDefault().getDisplayLanguage().toString());
-        System.out.println(getString(R.string.app_name));
+        //System.out.println(Locale.getDefault().getDisplayLanguage().toString());
+        //System.out.println(getString(R.string.app_name));
     }
 
 }
