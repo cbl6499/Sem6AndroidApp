@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    //King Jans Colors
+    <color name="BackgroundColor">#594F4F</color>
+    <color name="color1">#547980</color>
+    <color name="color2">#45ADA8</color>
+    <color name="color3">#9DE0AD</color>
+    <color name="color4">#E5FCC2</color>
 </resources>
