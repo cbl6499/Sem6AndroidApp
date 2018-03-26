@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class HSActivity extends AppCompatActivity {
     Button submit;
     EditText userName;
     EditText score;
+    List<User> users;
     User user;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -33,7 +35,7 @@ public class HSActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hs);
-
+        users = new ArrayList<>();
         userName = (EditText) findViewById(R.id.nameEditText);
         score = (EditText) findViewById(R.id.scoreEditText);
 
@@ -62,6 +64,10 @@ public class HSActivity extends AppCompatActivity {
                     newUser.setUserName(ds.getKey());
                     newUser.setScore(ds.getValue(User.class).getScore());
                     System.out.println(newUser.getUserName() + " : " + newUser.getScore());
+                    users.add(newUser);
+
+
+
                 }
                 //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
@@ -80,8 +86,26 @@ public class HSActivity extends AppCompatActivity {
         user.setScore(Integer.parseInt(score.getText().toString()));*/
 
         System.out.println(userName.getText().toString() + "    " + Integer.parseInt(score.getText().toString()));
-
-        mUserRef.child(userName.getText().toString()).setValue( new User(Integer.parseInt(score.getText().toString())));
+        User currentUser = new User();
+        boolean userFound = false;
+        for(User u : users){
+            if(u.getUserName().equals(userName.getText().toString())){
+                currentUser = u;
+                userFound = true;
+                System.out.println("User found");
+            }
+        }
+        if(userFound){
+            if(currentUser.getScore() < Integer.parseInt(score.getText().toString())) {
+                System.out.println("Score updated");
+                mUserRef.child(currentUser.getUserName()).setValue(new User(Integer.parseInt(score.getText().toString())));
+            } else {
+                System.out.println("No new highscore");
+            }
+        } else {
+            System.out.println("New User");
+            mUserRef.child(userName.getText().toString()).setValue(new User(Integer.parseInt(score.getText().toString())));
+        }
         //System.out.println("Key: " + mUserRef.child(userName.getText().toString()).child("score").getRef().toString());
 
         /*if(!TextUtils.isEmpty(user.getUserName()) || user.getScore().equals(null)){

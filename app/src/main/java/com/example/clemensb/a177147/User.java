@@ -33,4 +33,11 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
+    public boolean equals(User u){
+        if(u.getUserName().equals(userName)){
+            return true;
+        }
+        return false;
+    }
 }
