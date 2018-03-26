@@ -124,7 +124,7 @@ public class HSActivity extends AppCompatActivity {
     public void sortUsers(){
         Collections.sort(users);
         for(int i = 0; i < users.size(); i++){
-            System.out.println("Rank "  + i + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
+            System.out.println("Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
         }
     }
 }
