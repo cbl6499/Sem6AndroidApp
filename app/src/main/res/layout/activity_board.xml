@@ -9,7 +9,6 @@
     android:orientation="vertical"
     android:layout_weight="100"
     tools:context="com.example.clemensb.a177147.BoardActivity">
-
         <LinearLayout
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -43,6 +42,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/gameview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -55,24 +55,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="15">
                 <Button
+                    android:id="@+id/b00"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b01"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b02"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b03"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -85,24 +93,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="15">
                 <Button
+                    android:id="@+id/b10"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b11"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b12"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b13"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -115,24 +131,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="15">
                 <Button
+                    android:id="@+id/b20"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b21"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b22"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b23"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -145,24 +169,32 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="15">
                 <Button
+                    android:id="@+id/b30"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b31"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b32"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
                 <Button
+                    android:id="@+id/b33"
+                    android:clickable = "false"
                     android:layout_margin="7.5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -180,6 +212,7 @@
         android:background="@color/color1"
         android:layout_marginBottom="10dp">
         <Button
+            android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
@@ -189,6 +222,7 @@
             android:textSize="20dp"
             android:textColor="@color/color5"/>
         <Button
+            android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
