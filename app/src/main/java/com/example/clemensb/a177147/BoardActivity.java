@@ -182,6 +182,7 @@ public class BoardActivity extends Activity {
             int valueA = getIntValue((String)board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
             int result = valueA * valueB;
+           // System.out.println("I am merging");
             board2DArray[a.getX()][a.getY()].setText(result + "");
             board2DArray[b.getX()][b.getY()].setText("");
         }
@@ -229,8 +230,17 @@ public class BoardActivity extends Activity {
                         System.out.println("Value: " + getIntValue((String) board2DArray[i][j].getText()));
                         System.out.println("Value as String: " +  board2DArray[i][j].getText());
                         System.out.println("Value of Left Button: " +getIntValue((String)board2DArray[i][j-1].getText()));
-                        if (getIntValue((String) board2DArray[i][j].getText()) == getIntValue((String)board2DArray[i][j-1].getText())){ //lastValue) {
-                            merge(new Coordinate(i, j), new Coordinate(i, j - 1));
+                        if(getIntValue((String) board2DArray[i][j].getText()) == -1 || getIntValue((String)board2DArray[i][j-1].getText()) != -1) {
+                            if (getIntValue((String) board2DArray[i][j].getText()) == getIntValue((String) board2DArray[i][j - 1].getText())) { //lastValue) {
+                                System.out.println("I am merging");
+                                int valueA = getIntValue((String) board2DArray[i][j].getText());
+                                int valueB = getIntValue((String) board2DArray[i][j - 1].getText());
+                                int result = valueA * valueB;
+                                // System.out.println("I am merging");
+                                board2DArray[i][j-1].setText(result + "");
+                                board2DArray[i][j].setText("");
+                                // merge(new Coordinate(i, j), new Coordinate(i, j - 1));
+                            }
                         }
                     }
                     if(lastValue == -1 || lastValue == 0){
