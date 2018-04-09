@@ -225,15 +225,25 @@ public class BoardActivity extends Activity {
                 if(j > 0) {
                     System.out.println("j > 0");
                     if (!board2DArray[i][j].equals("")) {
-                        if (getIntValue((String) board2DArray[i][j].getText()) == lastValue) {
+                        System.out.println("LastValue: " + lastValue);
+                        System.out.println("Value: " + getIntValue((String) board2DArray[i][j].getText()));
+                        System.out.println("Value as String: " +  board2DArray[i][j].getText());
+                        if (getIntValue((String) board2DArray[i][j].getText()) == getIntValue((String)board2DArray[i][j-1].getText())){ //lastValue) {
                             merge(new Coordinate(i, j - 1), new Coordinate(i, j));
                         }
                     }
-                    if (board2DArray[i][j-1].equals("")) {
+                    if(lastValue == -1 || lastValue == 0){
+                    // if(getIntValue((String)board2DArray[i][j-1].getText()) != -1 && getIntValue((String)board2DArray[i][j-1].getText()) != 0){
+                        System.out.println("Shifting");
+                        board2DArray[i][j-1].setText(board2DArray[i][j].getText());
+                        board2DArray[i][j].setText("");
+                    }
+                    /*if (board2DArray[i][j-1].equals("")) {
                            board2DArray[i][j-1].setText(board2DArray[i][j].getText());
                            board2DArray[i][j].setText("");
-                    }
+                    }*/
                 }
+                lastValue = getIntValue((String)board2DArray[i][j].getText());
             }
         }
 
@@ -251,7 +261,7 @@ public class BoardActivity extends Activity {
         if(!s.equals("")) {
             return Integer.parseInt((String) s);
         }
-        return 0;
+        return -1;
     }
 
 }
