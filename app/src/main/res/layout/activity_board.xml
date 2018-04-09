@@ -61,7 +61,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <com.example.clemensb.a177147.SquareLayout
             android:id="@+id/gameview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -221,7 +221,7 @@
                     android:background="@color/color3"
                     android:layout_weight="2.5"/>
             </LinearLayout>
-        </LinearLayout>
+        </com.example.clemensb.a177147.SquareLayout>
     <LinearLayout
         android:layout_height="wrap_content"
         android:orientation="horizontal"
