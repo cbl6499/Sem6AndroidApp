@@ -228,8 +228,9 @@ public class BoardActivity extends Activity {
                         System.out.println("LastValue: " + lastValue);
                         System.out.println("Value: " + getIntValue((String) board2DArray[i][j].getText()));
                         System.out.println("Value as String: " +  board2DArray[i][j].getText());
+                        System.out.println("Value of Left Button: " +getIntValue((String)board2DArray[i][j-1].getText()));
                         if (getIntValue((String) board2DArray[i][j].getText()) == getIntValue((String)board2DArray[i][j-1].getText())){ //lastValue) {
-                            merge(new Coordinate(i, j - 1), new Coordinate(i, j));
+                            merge(new Coordinate(i, j), new Coordinate(i, j - 1));
                         }
                     }
                     if(lastValue == -1 || lastValue == 0){
