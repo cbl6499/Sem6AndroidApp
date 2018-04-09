@@ -11,6 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.Random;
+
+import domain.Coordinate;
+
 public class BoardActivity extends Activity {
 
     // Game view
@@ -99,6 +103,9 @@ public class BoardActivity extends Activity {
         board2DArray[3][2] = b32;
         board2DArray[3][3] = b33;
 
+        //init board
+
+        initBoard();
         //Button Click
         resetButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
@@ -133,8 +140,50 @@ public class BoardActivity extends Activity {
         });
     }
 
+    private void initBoard(){
+        Coordinate c1 = getRandomEmptyCoordinate();
+        Coordinate c2 = getRandomEmptyCoordinate();
+        while(c1.equals(c2)){
+            c2 = getRandomEmptyCoordinate();
+        }
+        board2DArray[c1.getX()][c1.getY()].setText("3");
+        board2DArray[c2.getX()][c2.getY()].setText("3");
+    }
+
+    public Coordinate getRandomEmptyCoordinate(){
+        Coordinate c = getRandomCoordinate();
+        while(!board2DArray[c.getX()][c.getY()].getText().equals("")){
+            c = getRandomCoordinate();
+        }
+        return c;
+    }
+
+    public Coordinate getRandomCoordinate(){
+        Random rand = new Random();
+        int row = rand.nextInt(4);
+        int column = rand.nextInt(4);
+        return new Coordinate(row, column);
+    }
+
+    private boolean canMerge(Coordinate a, Coordinate b){
+        if(board2DArray[a.getX()][a.getY()].getText().equals(board2DArray[b.getX()][b.getY()])){
+            return true;
+        }
+        return false;
+    }
+
+    private void merge(Coordinate a, Coordinate b){
+        if(canMerge(a, b)) {
+            int valueA = Integer.parseInt((String) board2DArray[a.getX()][a.getY()].getText());
+            int valueB = Integer.parseInt((String) board2DArray[b.getX()][b.getY()].getText());
+            int result = valueA * valueB;
+            board2DArray[a.getX()][a.getY()].setText(result + "");
+            board2DArray[b.getX()][b.getY()].setText("");
+        }
+    }
+
     private void resetBoard(){
-        for(int i = 0; i < board2DArray.length; i++) {
+      /*  for(int i = 0; i < board2DArray.length; i++) {
             for(int j = 0; j < board2DArray[i].length; j++) {
                 if((zzz%2)==0) {
                     board2DArray[i][j].setText("X");
@@ -143,7 +192,8 @@ public class BoardActivity extends Activity {
                 }
             }
         }
-        zzz = zzz + 1;
+        zzz = zzz + 1;*/
+      initBoard();
     }
 
     private void shiftTop(){
