@@ -141,6 +141,11 @@ public class BoardActivity extends Activity {
     }
 
     private void initBoard(){
+        for(int i = 0; i < board2DArray.length; i++){
+            for(int j = 0; j < board2DArray[i].length; j++){
+                board2DArray[i][j].setText("");
+            }
+        }
         Coordinate c1 = getRandomEmptyCoordinate();
         Coordinate c2 = getRandomEmptyCoordinate();
         while(c1.equals(c2)){
@@ -166,7 +171,7 @@ public class BoardActivity extends Activity {
     }
 
     private boolean canMerge(Coordinate a, Coordinate b){
-        if(board2DArray[a.getX()][a.getY()].getText().equals(board2DArray[b.getX()][b.getY()])){
+        if(board2DArray[a.getX()][a.getY()].getText().equals(board2DArray[b.getX()][b.getY()]) && !board2DArray[a.getX()][a.getY()].getText().equals("") && !board2DArray[b.getX()][b.getY()].equals("")){
             return true;
         }
         return false;
@@ -174,8 +179,8 @@ public class BoardActivity extends Activity {
 
     private void merge(Coordinate a, Coordinate b){
         if(canMerge(a, b)) {
-            int valueA = Integer.parseInt((String) board2DArray[a.getX()][a.getY()].getText());
-            int valueB = Integer.parseInt((String) board2DArray[b.getX()][b.getY()].getText());
+            int valueA = getIntValue((String)board2DArray[a.getX()][a.getY()].getText());
+            int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
             int result = valueA * valueB;
             board2DArray[a.getX()][a.getY()].setText(result + "");
             board2DArray[b.getX()][b.getY()].setText("");
@@ -213,11 +218,24 @@ public class BoardActivity extends Activity {
     }
 
     private void shiftLeft(){
+        int lastValue = 0;
         for(int i = 0; i < board2DArray.length; i++) {
             for(int j = 0; j < board2DArray[i].length; j++) {
                 board2DArray[i][j].setBackgroundColor(Color.BLUE);
+                if(j > 0) {
+                    System.out.println("j > 0");
+                    if (!board2DArray[i][j].equals("")) {
+                        if (getIntValue((String) board2DArray[i][j].getText()) == lastValue) {
+                            merge(new Coordinate(i, j - 1), new Coordinate(i, j));
+                        }
+                    } else if (board2DArray[i][j-1].equals("")) {
+                            board2DArray[i][j-1].setText(board2DArray[i][j].getText());
+                            board2DArray[i][j].setText("");
+                    }
+                }
             }
         }
+
     }
 
     private void shiftBottom(){
@@ -228,5 +246,11 @@ public class BoardActivity extends Activity {
         }
     }
 
+    private int getIntValue(String s){
+        if(!s.equals("")) {
+            return Integer.parseInt((String) s);
+        }
+        return 0;
+    }
 
 }
