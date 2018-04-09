@@ -33,7 +33,8 @@
         <activity
             android:name=".BoardActivity"
             android:label="177147"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GameModesActivity"
             android:label="177147"
