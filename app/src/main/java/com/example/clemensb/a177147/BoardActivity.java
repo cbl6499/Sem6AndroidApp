@@ -11,10 +11,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import domain.Coordinate;
+
+/**
+ * Created by Jan Fleisch
+ * Them Logix by David Hutter und Diego
+ */
 
 public class BoardActivity extends Activity {
 
@@ -171,13 +178,6 @@ public class BoardActivity extends Activity {
         return new Coordinate(row, column);
     }
 
-    private boolean canMerge(Coordinate a, Coordinate b){
-        if(board2DArray[a.getX()][a.getY()].getText().equals(board2DArray[b.getX()][b.getY()]) && !board2DArray[a.getX()][a.getY()].getText().equals("") && !board2DArray[b.getX()][b.getY()].equals("")){
-            return true;
-        }
-        return false;
-    }
-
     private void merge(Coordinate a, Coordinate b){
             int valueA = getIntValue((String)board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
@@ -224,14 +224,34 @@ public class BoardActivity extends Activity {
             if (needsShift(board2DArray[i])){
                 for (int k = 0; k < board2DArray[i].length; k++) {
                     if(getIntValue((String)board2DArray[i][k].getText()) == -1 || getIntValue((String)board2DArray[i][k].getText()) == 0){
+                       /* System.out.println("Shifting");
+                        if(k != 0) {
+                            board2DArray[i][k - 1].setText(board2DArray[i][k].getText());
+                            board2DArray[i][k].setText("");
+                        }*/
                         counter++;
                     } else {
-                        if(k - counter <= 0){
+                        int fullrows = 0;
+
+                        for(int l = 0; l < board2DArray.length; l++){
+                            boolean full = true;
+                            for(int m = 0; m < board2DArray[l].length; m++){
+                                if(getIntValue((String)board2DArray[m][l].getText()) != -1){
+                                    full = false;
+                                }
+                            }
+                            if(full){
+                                fullrows++;
+                            }
+                        }
+                        if(k - counter <= fullrows){// 0
                             if(getIntValue((String)board2DArray[i][k-counter].getText()) == -1){
-                                board2DArray[i][0].setText(board2DArray[i][k].getText());
+                                System.out.println("Shifting to the edge");
+                                board2DArray[i][fullrows].setText(board2DArray[i][k].getText());
                                 board2DArray[i][k].setText("");
                             }
                         } else {
+                            System.out.println("Shifting normally");
                             board2DArray[i][k - counter].setText(board2DArray[i][k].getText());
                             board2DArray[i][k].setText("");
                         }
@@ -242,19 +262,13 @@ public class BoardActivity extends Activity {
             for(int j = 0; j < board2DArray[i].length; j++) {
                 board2DArray[i][j].setBackgroundColor(Color.BLUE);
                 if(j > 0) {
-                    //System.out.println("j > 0");
                     if (!board2DArray[i][j].equals("")) {
-                        // System.out.println("LastValue: " + lastValue);
-                        // System.out.println("Value: " + getIntValue((String) board2DArray[i][j].getText()));
-                        // System.out.println("Value as String: " +  board2DArray[i][j].getText());
-                        // System.out.println("Value of Left Button: " +getIntValue((String)board2DArray[i][j-1].getText()));
                         if (getIntValue((String) board2DArray[i][j].getText()) == -1 || getIntValue((String) board2DArray[i][j - 1].getText()) != -1) {
                             if (board2DArray[i][j].getText().equals(board2DArray[i][j - 1].getText())) {
-                                System.out.println("I am merging");
+                                System.out.println("I am merging " + getIntValue((String) board2DArray[i][j].getText()) + " and " + getIntValue((String) board2DArray[i][j - 1].getText()));
                                 int valueA = getIntValue((String) board2DArray[i][j].getText());
                                 int valueB = getIntValue((String) board2DArray[i][j - 1].getText());
                                 int result = valueA * valueB;
-                                // System.out.println("I am merging");
                                 board2DArray[i][j - 1].setText(result + "");
                                 board2DArray[i][j].setText("");
                                 //merge(new Coordinate(i, j), new Coordinate(i, j - 1));
@@ -263,7 +277,7 @@ public class BoardActivity extends Activity {
                         }
                     }
 
-                    if(lastValue == -1 || lastValue == 0){
+                   if(lastValue == -1 || lastValue == 0){
                    // if(getIntValue((String)board2DArray[i][j-1].getText()) == -1 || getIntValue((String)board2DArray[i][j-1].getText()) == 0){
 
                         System.out.println("Shifting");
@@ -280,6 +294,31 @@ public class BoardActivity extends Activity {
 
         }
 
+        spawnNumber(Direction.Left);
+    }
+
+    private void spawnNumber(Direction direction){
+        Random rand = new Random();
+        List<Coordinate> free = new ArrayList<>();
+        switch(direction){
+            case Left:
+                for(int i = 0; i < board2DArray.length; i++){
+                    for(int j = 1; j < board2DArray[i].length; j++){
+                        if(getIntValue((String)board2DArray[i][j].getText()) == -1){
+                            free.add(new Coordinate(i, j));
+                        }
+                    }
+                }
+                int value = rand.nextInt(free.size());
+                board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
+                break;
+            case Right:
+                break;
+            case Up:
+                break;
+            case Down:
+                break;
+        }
     }
 
     private boolean needsShift(Button[] array){
