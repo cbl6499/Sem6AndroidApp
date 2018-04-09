@@ -26,7 +26,7 @@ import domain.Coordinate;
 public class BoardActivity extends Activity {
 
     // Game view
-    LinearLayout gameview;
+    SquareLayout gameview;
     Button[][] board2DArray = new Button[4][4];
     //Line1
     Button b00;
@@ -260,7 +260,7 @@ public class BoardActivity extends Activity {
                 }
             }
             for(int j = 0; j < board2DArray[i].length; j++) {
-                board2DArray[i][j].setBackgroundColor(Color.BLUE);
+                board2DArray[i][j].setBackgroundColor(Color.LTGRAY);
                 if(j > 0) {
                     if (!board2DArray[i][j].equals("")) {
                         if (getIntValue((String) board2DArray[i][j].getText()) == -1 || getIntValue((String) board2DArray[i][j - 1].getText()) != -1) {
