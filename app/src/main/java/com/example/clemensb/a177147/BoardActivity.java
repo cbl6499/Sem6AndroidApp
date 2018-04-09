@@ -228,9 +228,10 @@ public class BoardActivity extends Activity {
                         if (getIntValue((String) board2DArray[i][j].getText()) == lastValue) {
                             merge(new Coordinate(i, j - 1), new Coordinate(i, j));
                         }
-                    } else if (board2DArray[i][j-1].equals("")) {
-                            board2DArray[i][j-1].setText(board2DArray[i][j].getText());
-                            board2DArray[i][j].setText("");
+                    }
+                    if (board2DArray[i][j-1].equals("")) {
+                           board2DArray[i][j-1].setText(board2DArray[i][j].getText());
+                           board2DArray[i][j].setText("");
                     }
                 }
             }
