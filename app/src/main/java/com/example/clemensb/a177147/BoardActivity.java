@@ -236,7 +236,7 @@ public class BoardActivity extends Activity {
                         for(int l = 0; l < board2DArray.length; l++){
                             boolean full = true;
                             for(int m = 0; m < board2DArray[l].length; m++){
-                                if(getIntValue((String)board2DArray[m][l].getText()) != -1){
+                                if(getIntValue((String)board2DArray[m][l].getText()) == -1){
                                     full = false;
                                 }
                             }
