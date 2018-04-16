@@ -38,6 +38,7 @@
                 android:textAlignment="center"/>
 
             <TextView
+                android:id="@+id/score"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="000"
@@ -71,6 +72,7 @@
                 android:textAlignment="center"/>
 
             <TextView
+                android:id="@+id/highscore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="000"
