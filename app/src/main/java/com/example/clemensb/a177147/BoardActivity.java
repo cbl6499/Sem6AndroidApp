@@ -201,30 +201,24 @@ public class BoardActivity extends Activity {
                     merge(new Coordinate(i, j), new Coordinate(i+1, j));
                     shifted = true;
                 }
-            }
-
-        }
-        if(shifted) {
-            spawnNumber();
-        }
-    }
-
-    private void shiftRight(){
-        boolean shifted = false;
-        for(int i = board2DArray.length - 1; i >= 0; i--) {
-            for (int j = board2DArray[i].length - 1; j > 0; j--) {
-                if (board2DArray[i][j].getText().equals(board2DArray[i][j - 1].getText()) || isEmptyField(i, j - 1)) {
-                    merge(new Coordinate(i, j), new Coordinate(i, j - 1));
+                if(needsShift(board2DArray[i])){
                     shifted = true;
+                    for(int k = 0; k < board2DArray[i].length; k++){
+                        if (isEmptyField(i,k)) {
+                            if(k < board2DArray[i].length - 1){
+                                board2DArray[i][k].setText(board2DArray[i+1][k].getText());
+                                board2DArray[i+1][k].setText("");
+                            }
+                        }
+                    }
                 }
-
             }
+
         }
         if(shifted) {
             spawnNumber();
         }
     }
-
 
     private void shiftLeft(){
         boolean shifted = false;
@@ -253,6 +247,35 @@ public class BoardActivity extends Activity {
         }
     }
 
+    private void shiftRight(){
+        boolean shifted = false;
+        for(int i = board2DArray.length - 1; i >= 0; i--) {
+            for (int j = board2DArray[i].length - 1; j > 0; j--) {
+                if (board2DArray[i][j].getText().equals(board2DArray[i][j - 1].getText()) || isEmptyField(i, j - 1)) {
+                    merge(new Coordinate(i, j), new Coordinate(i, j - 1));
+                    shifted = true;
+                }
+                if(needsShift(board2DArray[i])){
+                    shifted = true;
+                    for(int k = board2DArray[i].length-1; k > 0; k--){
+                        if (isEmptyField(i,k)) {
+                            if(k > 0){
+                                board2DArray[i][k].setText(board2DArray[i][k-1].getText());
+                                board2DArray[i][k+1].setText("");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(shifted) {
+            spawnNumber();
+        }
+    }
+
+
+
+
 
 
     private void shiftBottom(){
@@ -263,7 +286,17 @@ public class BoardActivity extends Activity {
                     merge(new Coordinate(i, j), new Coordinate(i-1, j));
                     shifted = true;
                 }
-
+                if(needsShift(board2DArray[i])){
+                    shifted = true;
+                    for(int k = board2DArray[i].length - 1; k >= 0; k--){
+                        if (isEmptyField(i,k)) {
+                            if(k < board2DArray[i].length - 1){
+                                board2DArray[i][k].setText(board2DArray[i-1][k].getText());
+                                board2DArray[i-1][k].setText("");
+                            }
+                        }
+                    }
+                }
             }
         }
         if(shifted) {
