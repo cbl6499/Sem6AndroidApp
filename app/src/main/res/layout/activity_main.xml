@@ -97,31 +97,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text=""
-        android:textColor="#000"
-        android:textSize="20dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textViewEmail"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewName"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text=""
-        android:textColor="#000"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/sign_out" />
 </android.support.constraint.ConstraintLayout>
