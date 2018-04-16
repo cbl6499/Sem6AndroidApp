@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,9 +26,13 @@ import domain.Coordinate;
 
 public class BoardActivity extends Activity {
 
+    private int score = 0;
     // Game view
     SquareLayout gameview;
     Button[][] board2DArray = new Button[4][4];
+
+    TextView scoreView;
+    TextView highScoreView;
     //Line1
     Button b00;
     Button b01;
@@ -111,6 +116,9 @@ public class BoardActivity extends Activity {
         board2DArray[3][2] = b32;
         board2DArray[3][3] = b33;
 
+        scoreView = findViewById(R.id.score);
+        highScoreView = findViewById(R.id.highscore);
+        highScoreView.setText("99999");
         //init board
 
         initBoard();
@@ -179,16 +187,21 @@ public class BoardActivity extends Activity {
     }
 
     private void merge(Coordinate a, Coordinate b){
-        int result = 1;
+        //int result = 1;
         //if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())) {
             int valueA = getIntValue((String) board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
-            result = Math.abs(valueA) * Math.abs(valueB);
+            int result = Math.abs(valueA) * Math.abs(valueB); //*3
         //}
         if(result != 1) {
             board2DArray[a.getX()][a.getY()].setText(result + "");
             board2DArray[b.getX()][b.getY()].setText("");
+            if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())){
+                score += result;
+                scoreView.setText(score + "");
+            }
         }
+
     }
 
     private void resetBoard(){
@@ -199,6 +212,18 @@ public class BoardActivity extends Activity {
         boolean shifted = false;
         for(int i = 0; i < board2DArray.length -1 ; i++) {
             for (int j = 0; j < board2DArray[i].length; j++) {
+             /*   int targetIndex = 0;
+                int shiftedElements = 0;
+                for( int sourceIndex = 0;  sourceIndex < board2DArray[i].length;  sourceIndex++ ) {
+                    if( !isEmptyField(i, sourceIndex)) {
+                        board2DArray[targetIndex++][j].setText(board2DArray[sourceIndex][j].getText());
+                        board2DArray[sourceIndex][j].setText("");
+                        shiftedElements++;
+                    }
+                }
+                for(int z = 0; z < shiftedElements; z++){
+                    board2DArray[board2DArray.length - 1 - z][j].setText("");
+                }*/
                 if (board2DArray[i][j].getText().equals(board2DArray[i+1][j].getText()) || isEmptyField(i+1, j)) {
                     merge(new Coordinate(i, j), new Coordinate(i+1, j));
                     shifted = true;
@@ -214,8 +239,8 @@ public class BoardActivity extends Activity {
                     }
                 }
             }
-
         }
+
         if(shifted) {
             spawnNumber();
         }
@@ -303,7 +328,7 @@ public class BoardActivity extends Activity {
         Random rand = new Random();
         List<Coordinate> free = new ArrayList<>();
         for(int i = 0; i < board2DArray.length; i++){
-            for(int j = 1; j < board2DArray[i].length; j++){
+            for(int j = 0; j < board2DArray[i].length; j++){
                 if(getIntValue((String)board2DArray[i][j].getText()) == -1){
                     free.add(new Coordinate(i, j));
                 }
