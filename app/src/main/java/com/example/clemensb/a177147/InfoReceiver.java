@@ -13,6 +13,6 @@ public class InfoReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Toast.makeText(context, "Battery low! Please charge your phone!" , Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Battery is low! Please charge your phone!" , Toast.LENGTH_LONG).show();
     }
 }
