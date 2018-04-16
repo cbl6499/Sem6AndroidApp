@@ -259,7 +259,7 @@ public class BoardActivity extends Activity {
                     shifted = true;
                     for(int k = board2DArray[i].length-1; k > 0; k--){
                         if (isEmptyField(i,k)) {
-                            if(k > 0){
+                            if(k < board2DArray[i].length - 1){
                                 board2DArray[i][k].setText(board2DArray[i][k-1].getText());
                                 board2DArray[i][k+1].setText("");
                             }
@@ -272,10 +272,6 @@ public class BoardActivity extends Activity {
             spawnNumber();
         }
     }
-
-
-
-
 
 
     private void shiftBottom(){
