@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         //System.out.println(Locale.getDefault().getDisplayLanguage().toString());
         //System.out.println(getString(R.string.app_name));
 
-        setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_main);
 
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
