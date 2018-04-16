@@ -173,16 +173,18 @@ public class BoardActivity extends Activity {
 
     public Coordinate getRandomCoordinate(){
         Random rand = new Random();
-        int row = rand.nextInt(4);
-        int column = rand.nextInt(4);
+        int row = rand.nextInt(board2DArray.length);
+        int column = rand.nextInt(board2DArray[0].length);
         return new Coordinate(row, column);
     }
 
     private void merge(Coordinate a, Coordinate b){
-            int valueA = getIntValue((String)board2DArray[a.getX()][a.getY()].getText());
+        int result = 1;
+        //if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())) {
+            int valueA = getIntValue((String) board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
-            int result = Math.abs(valueA) * Math.abs(valueB);
-           // System.out.println("I am merging");
+            result = Math.abs(valueA) * Math.abs(valueB);
+        //}
         if(result != 1) {
             board2DArray[a.getX()][a.getY()].setText(result + "");
             board2DArray[b.getX()][b.getY()].setText("");
@@ -205,9 +207,8 @@ public class BoardActivity extends Activity {
                     shifted = true;
                     for(int k = 0; k < board2DArray[i].length; k++){
                         if (isEmptyField(i,k)) {
-                            if(k < board2DArray[i].length - 1){
-                                board2DArray[i][k].setText(board2DArray[i+1][k].getText());
-                                board2DArray[i+1][k].setText("");
+                            if(i < board2DArray[i].length - 1){
+                                shift(new Coordinate(i, k), new Coordinate(i+1,k));
                             }
                         }
                     }
@@ -233,8 +234,7 @@ public class BoardActivity extends Activity {
                     for(int k = 0; k < board2DArray[i].length; k++){
                         if (isEmptyField(i,k)) {
                             if(k < board2DArray[i].length - 1){
-                                board2DArray[i][k].setText(board2DArray[i][k+1].getText());
-                                board2DArray[i][k+1].setText("");
+                                shift(new Coordinate(i, k), new Coordinate(i, k+1));
                             }
                         }
                     }
@@ -260,8 +260,7 @@ public class BoardActivity extends Activity {
                     for(int k = board2DArray[i].length-1; k > 0; k--){
                         if (isEmptyField(i,k)) {
                             if(k > 0){
-                                board2DArray[i][k].setText(board2DArray[i][k-1].getText());
-                                board2DArray[i][k+1].setText("");
+                                shift(new Coordinate(i, k), new Coordinate(i, k-1));
                             }
                         }
                     }
@@ -286,9 +285,8 @@ public class BoardActivity extends Activity {
                     shifted = true;
                     for(int k = board2DArray[i].length - 1; k >= 0; k--){
                         if (isEmptyField(i,k)) {
-                            if(k > 0){
-                                board2DArray[i][k].setText(board2DArray[i-1][k].getText());
-                                board2DArray[i-1][k].setText("");
+                            if(i > 0){
+                                shift(new Coordinate(i, k), new Coordinate(i-1, k));
                             }
                         }
                     }
@@ -315,6 +313,10 @@ public class BoardActivity extends Activity {
         board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
     }
 
+    private void shift(Coordinate a, Coordinate b){
+        board2DArray[a.getX()][a.getY()].setText(board2DArray[b.getX()][b.getY()].getText());
+        board2DArray[b.getX()][b.getY()].setText("");
+    }
 
 
     private boolean needsShift(Button[] array){
