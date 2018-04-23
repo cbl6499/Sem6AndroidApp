@@ -220,31 +220,30 @@ public class BoardActivity extends Activity {
 
     private void shiftTop(){
         boolean shifted = false;
-        for(int i = 0; i < board2DArray.length -1 ; i++) {
+        for (int i = 0; i < board2DArray.length - 1; i++) {
             for (int j = 0; j < board2DArray[i].length; j++) {
                 boolean merged = false;
-                if (board2DArray[i][j].getText().equals(board2DArray[i+1][j].getText()) || isEmptyField(i+1, j)) {
-                    merge(new Coordinate(i, j), new Coordinate(i+1, j));
+                if (board2DArray[i][j].getText().equals(board2DArray[i+1][j].getText()) || isEmptyField(i+1,j)) {
+                    merge(new Coordinate(i,j), new Coordinate(i+1,j));
                     shifted = true;
                     merged = true;
                 }
-                if(needsShift(board2DArray[i])){
+                if (needsShift(board2DArray,j)) {
                     shifted = true;
-                    for(int k = 0; k < board2DArray[i].length; k++){
-                        if (isEmptyField(i,k)) {
-                            if(i < board2DArray[i].length - 1){
-                                shift(new Coordinate(i, k), new Coordinate(i+1,k));
+                    for(int k = 0; k < board2DArray.length; k++){
+                        if (isEmptyField(k,j)) {
+                            if(k < board2DArray[k].length - 1){
+                                shift(new Coordinate(k, j), new Coordinate(k+1, j));
                             }
                         }
                     }
-                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
-                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
-                        shifted = true;
-                    }
+                }
+                if (board2DArray[i][j].getText().equals(board2DArray[i+1][j].getText()) || isEmptyField(i+1,j) && !merged) {
+                    merge(new Coordinate(i,j), new Coordinate(i+1,j));
+                    shifted = true;
                 }
             }
         }
-
         if(shifted) {
             spawnNumber();
         }
@@ -283,11 +282,11 @@ public class BoardActivity extends Activity {
 
     private void shiftRight(){
         boolean shifted = false;
-        for(int i = board2DArray.length - 1; i >= 0; i--) {
+        for(int i = 0; i < board2DArray.length; i++) {
             for (int j = board2DArray[i].length - 1; j > 0; j--) {
                 boolean merged = false;
                 if (board2DArray[i][j].getText().equals(board2DArray[i][j - 1].getText()) || isEmptyField(i, j - 1)) {
-                    merge(new Coordinate(i, j), new Coordinate(i, j - 1));
+                    merge(new Coordinate(i, j-1), new Coordinate(i, j));
                     shifted = true;
                     merged = true;
                 }
@@ -300,8 +299,8 @@ public class BoardActivity extends Activity {
                             }
                         }
                     }
-                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
-                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
+                    if (board2DArray[i][j].getText().equals(board2DArray[i][j-1].getText()) || isEmptyField(i, j) && !merged) {
+                        merge(new Coordinate(i, j-1), new Coordinate(i, j));
                         shifted = true;
                     }
                 }
@@ -315,27 +314,27 @@ public class BoardActivity extends Activity {
 
     private void shiftBottom(){
         boolean shifted = false;
-        for(int i = board2DArray.length - 1; i > 0; i--) {
-            for (int j = board2DArray[i].length - 1; j >= 0; j--) {
+        for (int i = board2DArray.length-1; i > 0; i--) {
+            for (int j = 0; j < board2DArray[i].length; j++) {
                 boolean merged = false;
-                if (board2DArray[i][j].getText().equals(board2DArray[i-1][j].getText()) || isEmptyField(i-1, j)) {
-                    merge(new Coordinate(i, j), new Coordinate(i-1, j));
+                if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i,j)) {
+                    merge(new Coordinate(i,j), new Coordinate(i-1,j));
                     shifted = true;
                     merged = true;
                 }
-                if(needsShift(board2DArray[i])){
+                if (needsShift(board2DArray,j)) {
                     shifted = true;
-                    for(int k = board2DArray[i].length - 1; k >= 0; k--){
-                        if (isEmptyField(i,k)) {
-                            if(i > 0){
-                                shift(new Coordinate(i, k), new Coordinate(i-1, k));
+                    for(int k = board2DArray.length-1; k > 0; k--){
+                        if (isEmptyField(k,j)) {
+                            if(k < board2DArray[k].length - 1){
+                                shift(new Coordinate(k, j), new Coordinate(k-1, j));
                             }
                         }
                     }
-                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
-                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
-                        shifted = true;
-                    }
+                }
+                if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i,j) && !merged) {
+                    merge(new Coordinate(i,j), new Coordinate(i-1,j));
+                    shifted = true;
                 }
             }
         }
@@ -370,6 +369,15 @@ public class BoardActivity extends Activity {
     private boolean needsShift(Button[] array){
         for(int i = 0; i < array.length; i++){
             if(getIntValue(array[i].getText().toString()) != -1){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean needsShift(Button[][] array, int column) {
+        for (int i = 0; i < array.length; i++) {
+            if (getIntValue(array[i][column].getText().toString()) != -1) {
                 return true;
             }
         }
