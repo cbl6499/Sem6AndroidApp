@@ -77,24 +77,24 @@ public class GameState {
         boolean merge = false;
         for(int i = 0; i < state.length; i++){
             for(int j = 0; j < state[i].length; j++){
-                if(i != 0 && j != 0 && i < state.length-1 && j < state.length - 1){
+                if(i != 0 && j != 0 && i < state.length-1 && j < state.length - 1){ //Nicht am Rand
                     if(canMerge(state[i][j], state[i-1][j]) || canMerge(state[i][j], state[i+1][j]) || canMerge(state[i][j], state[i][j-1]) || canMerge(state[i][j], state[i][j+1])){
                         merge = true;
                     }
-                } else if(i == 0 && j != 0 && i < state.length-1 && j < state.length -1){
+                } else if(i == 0 && j != 0 && i < state.length-1 && j < state.length -1){ //Oberer Rand
                     if(canMerge(state[i][j], state[i+1][j]) || canMerge(state[i][j], state[i][j-1]) || canMerge(state[i][j], state[i][j+1])){
                         merge = true;
                     }
-                } else if(i != 0 && j == 0 && i < state.length-1 && j < state.length - 1){
+                } else if(i != 0 && j == 0 && i < state.length-1 && j < state.length - 1){ //Linker Rand
                     if(canMerge(state[i][j], state[i-1][j]) || canMerge(state[i][j], state[i+1][j]) || canMerge(state[i][j], state[i][j+1])){
                         merge = true;
                     }
-                } else if(i != 0 && j != 0 && i == state.length-1 && j < state.length - 1){
+                } else if(i != 0 && j != 0 && i == state.length-1 && j < state.length - 1){ //Unterer Rand
                     if(canMerge(state[i][j], state[i-1][j]) || canMerge(state[i][j], state[i][j-1]) || canMerge(state[i][j], state[i][j+1])){
                         merge = true;
                     }
-                } else if(i != 0 && j != 0 && i < state.length-1 && j == state.length - 1){
-                    if(canMerge(state[i][j], state[i-1][j]) || canMerge(state[i][j], state[i][j-1])){
+                } else if(i != 0 && j != 0 && i < state.length-1 && j == state.length - 1){ //Rechter Rand
+                    if(canMerge(state[i][j], state[i-1][j]) || canMerge(state[i][j], state[i+1][j]) || canMerge(state[i][j], state[i][j-1])){
                         merge = true;
                     }
                 } else if(i == 0 && j == 0 && i < state.length-1 && j < state.length - 1){ //Links oben

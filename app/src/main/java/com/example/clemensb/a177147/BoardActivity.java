@@ -160,7 +160,6 @@ public class BoardActivity extends Activity {
             }
         });
 
-
     }
 
     private void initBoard(){
@@ -272,7 +271,6 @@ public class BoardActivity extends Activity {
                         shifted = true;
                     }
                 }
-
             }
         }
         if(shifted) {
@@ -354,8 +352,10 @@ public class BoardActivity extends Activity {
                 }
             }
         }
-        int value = rand.nextInt(free.size());
-        board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
+        if(free.size() > 0) {
+            int value = rand.nextInt(free.size());
+            board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
+        }
     }
 
     private void shift(Coordinate a, Coordinate b){
@@ -396,9 +396,12 @@ public class BoardActivity extends Activity {
         int evaluate = state.evaluateState();
         if(evaluate == 1){
             //display win
+            Log.d("Win", "You win");
         } else if(evaluate == -1){
             //display lose
+            Log.d("Lost", "You lost");
         } else {
+            Log.d("Playing", "Keep going");
             //keep going
         }
     }
