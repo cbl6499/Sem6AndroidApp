@@ -32,6 +32,10 @@ public class GameState {
         return this.score;
     }
 
+    public boolean getWin(){
+        return won;
+    }
+
     public void clear(){
         for(int i = 0; i < this.state.length; i++){
             for(int j = 0; j < this.state[i].length; j++){
