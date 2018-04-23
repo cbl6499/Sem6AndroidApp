@@ -40,15 +40,21 @@
 
             <Button
                 android:id="@+id/startButton"
-                android:layout_width="300dp"
+                android:layout_width="200dp"
                 android:layout_height="75dp"
                 android:text="Start new Game" />
 
             <Button
                 android:id="@+id/resumeButton"
-                android:layout_width="300dp"
+                android:layout_width="200dp"
                 android:layout_height="75dp"
                 android:text="Resume last Game" />
+
+            <Button
+                android:id="@+id/inviteButton"
+                android:layout_width="200dp"
+                android:layout_height="75dp"
+                android:text="Invite Friends" />
 
         </LinearLayout>
 
