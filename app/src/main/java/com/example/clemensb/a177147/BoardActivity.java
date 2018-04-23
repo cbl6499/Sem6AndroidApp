@@ -392,6 +392,15 @@ public class BoardActivity extends Activity {
         GameState state = GameState.getInstance();
         String[][] currentState = convertStateToStringArray();
         state.setState(currentState);
+        state.setScore(score);
+        int evaluate = state.evaluateState();
+        if(evaluate == 1){
+            //display win
+        } else if(evaluate == -1){
+            //display lose
+        } else {
+            //keep going
+        }
     }
 
     private String[][] convertStateToStringArray(){
