@@ -122,7 +122,8 @@ public class BoardActivity extends Activity {
         highScoreView.setText("99999");
         //init board
 
-        initBoard();
+        //initBoard();
+        recoverState();
         //Button Click
         resetButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
@@ -157,8 +158,9 @@ public class BoardActivity extends Activity {
                 Log.d("Botoom", "Bottom");
                 saveState();
             }
-
         });
+
+
     }
 
     private void initBoard(){
@@ -403,11 +405,15 @@ public class BoardActivity extends Activity {
 
     public void recoverState(){
         GameState state = GameState.getInstance();
-        String[][] savedState = state.getState();
-        for(int i = 0; i < board2DArray.length; i++){
-            for(int j = 0; j < board2DArray[i].length; j++){
-                board2DArray[i][j].setText(savedState[i][j]);
+        if(!state.isEmptyState()) {
+            String[][] savedState = state.getState();
+            for (int i = 0; i < board2DArray.length; i++) {
+                for (int j = 0; j < board2DArray[i].length; j++) {
+                    board2DArray[i][j].setText(savedState[i][j]);
+                }
             }
+        } else {
+            initBoard();
         }
     }
 

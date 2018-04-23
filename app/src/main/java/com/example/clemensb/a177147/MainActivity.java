@@ -29,6 +29,8 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.Locale;
 
+import domain.GameState;
+
 public class MainActivity extends AppCompatActivity {
 
     // TAG is for show some tag logs in LOG screen.
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
-        signInButton = (com.google.android.gms.common.SignInButton) findViewById(R.id.sign_in_button);
+        signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
         clickButton = (Button) findViewById(R.id.startButton);
 
@@ -112,11 +114,19 @@ public class MainActivity extends AppCompatActivity {
         clickButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GameModesActivity.class);
+                GameState.deleteState();
                 startActivity(intent);
             }
         });
 
-        hsButton.setOnClickListener(new View.OnClickListener() {
+        resumeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GameModesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+                hsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, HSTableActivity.class);
                 startActivity(intent);

@@ -29,11 +29,26 @@ public class GameState {
         }
     }
 
+    public static void deleteState(){
+        instance = null;
+    }
+
     public void setState(String[][] state){
         this.state = state;
     }
 
     public String[][] getState(){
         return this.state;
+    }
+
+    public boolean isEmptyState(){
+        for(int i = 0; i < state.length; i++){
+            for(int j = 0; j < state[i].length; j++){
+                if(!state[i][j].equals("")){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
