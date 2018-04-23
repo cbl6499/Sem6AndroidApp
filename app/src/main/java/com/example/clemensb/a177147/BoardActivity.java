@@ -164,6 +164,7 @@ public class BoardActivity extends Activity {
     }
 
     private void initBoard(){
+        this.score = 0;
         for(int i = 0; i < board2DArray.length; i++){
             for(int j = 0; j < board2DArray[i].length; j++){
                 board2DArray[i][j].setText("");
@@ -406,6 +407,7 @@ public class BoardActivity extends Activity {
     public void recoverState(){
         GameState state = GameState.getInstance();
         if(!state.isEmptyState()) {
+            this.score = state.getScore();
             String[][] savedState = state.getState();
             for (int i = 0; i < board2DArray.length; i++) {
                 for (int j = 0; j < board2DArray[i].length; j++) {
