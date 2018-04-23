@@ -393,16 +393,26 @@ public class BoardActivity extends Activity {
         String[][] currentState = convertStateToStringArray();
         state.setState(currentState);
         state.setScore(score);
-        int evaluate = state.evaluateState();
+        /*int evaluate = state.evaluateState();
         if(evaluate == 1){
+            Intent intent = new Intent(BoardActivity.this, EvaluateActivity.class);
+            startActivity(intent);
             //display win
             Log.d("Win", "You win");
         } else if(evaluate == -1){
             //display lose
+            Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
+            startActivity(intent);
             Log.d("Lost", "You lost");
         } else {
             Log.d("Playing", "Keep going");
             //keep going
+        }*/
+        if(state.evaluateState() != 0){
+            Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
+            startActivity(intent);
+        } else {
+            Log.d("Playing", "Keep going");
         }
     }
 
