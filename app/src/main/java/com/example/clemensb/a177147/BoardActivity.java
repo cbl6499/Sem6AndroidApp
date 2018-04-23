@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -354,11 +357,20 @@ public class BoardActivity extends Activity {
                 }
             }
         }
-        //if(free.size() > 0) {
+        if(free.size() > 0) {
+            //animation
+            final Animation animation = new AlphaAnimation(1, 0); // Change alpha from fully visible to invisible
+            animation.setDuration(500); // duration - half a second
+            animation.setInterpolator(new LinearInterpolator()); // do not alter animation rate
+            animation.setRepeatMode(Animation.REVERSE); // Reverse animation at the end so the button will fade back in
+
+
             int value = rand.nextInt(free.size());
             board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
-        //}
+            board2DArray[free.get(value).getX()][free.get(value).getY()].startAnimation(animation);
+        }
     }
+
 
     private void shift(Coordinate a, Coordinate b){
         board2DArray[a.getX()][a.getY()].setText(board2DArray[b.getX()][b.getY()].getText());
