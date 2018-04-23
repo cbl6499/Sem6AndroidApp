@@ -198,7 +198,7 @@ public class BoardActivity extends Activity {
         //if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())) {
             int valueA = getIntValue((String) board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
-            int result = Math.abs(valueA) * Math.abs(valueB); //*3
+            int result = Math.abs(valueA) * 3;// Math.abs(valueB); //*3
         //}
         if(result != 1) {
             board2DArray[a.getX()][a.getY()].setText(result + "");

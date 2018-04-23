@@ -25,7 +25,7 @@ public class EvaluateActivity extends AppCompatActivity {
         boolean won = GameState.getInstance().getWin();
         if(won){
             evaluateText.setText("Yay, you won!");
-            resumeButton.setText("Continue Playing");
+            resumeButton.setText("Continue Playing!");
         } else {
             evaluateText.setText("OMG, you lost");
             resumeButton.setText("Back to game");
