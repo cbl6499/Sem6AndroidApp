@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 import domain.Coordinate;
+import domain.GameState;
 
 /**
  * Created by Jan Fleisch
@@ -139,18 +140,22 @@ public class BoardActivity extends Activity {
             public void onSwipeTop() {
                 shiftTop();
                 Log.d("Top", "Top");
+                saveState();
             }
             public void onSwipeRight() {
                 shiftRight();
                 Log.d("Right", "Right");
+                saveState();
             }
             public void onSwipeLeft() {
                 shiftLeft();
                 Log.d("Left", "Left");
+                saveState();
             }
             public void onSwipeBottom() {
                 shiftBottom();
                 Log.d("Botoom", "Bottom");
+                saveState();
             }
 
         });
@@ -378,6 +383,32 @@ public class BoardActivity extends Activity {
             return Integer.parseInt(s);
         }
         return -1;
+    }
+
+    private void saveState(){
+        GameState state = GameState.getInstance();
+        String[][] currentState = convertStateToStringArray();
+        state.setState(currentState);
+    }
+
+    private String[][] convertStateToStringArray(){
+        String[][] state = new String[board2DArray.length][board2DArray[0].length];
+        for(int i = 0; i < state.length; i++){
+            for(int j = 0; j < state[i].length; j++){
+                state[i][j] = board2DArray[i][j].getText().toString();
+            }
+        }
+        return state;
+    }
+
+    public void recoverState(){
+        GameState state = GameState.getInstance();
+        String[][] savedState = state.getState();
+        for(int i = 0; i < board2DArray.length; i++){
+            for(int j = 0; j < board2DArray[i].length; j++){
+                board2DArray[i][j].setText(savedState[i][j]);
+            }
+        }
     }
 
 }
