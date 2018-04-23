@@ -1,100 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0E0E0"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:orientation="vertical"
+    android:layout_weight="100"
     tools:context="com.example.clemensb.a177147.MainActivity">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="25dp"
-        android:src="@drawable/pic2325525"
-        app:layout_constraintBottom_toTopOf="@+id/startButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_weight="40"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/startButton"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="47dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        android:text="Start new Game"
-        app:layout_constraintBottom_toTopOf="@+id/resumeButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/pic2325525" />
 
-    <Button
-        android:id="@+id/resumeButton"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        android:text="Resume last Game"
-        app:layout_constraintBottom_toTopOf="@+id/highscoreButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startButton" />
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="300dp"
+            android:layout_height="75dp" />
 
-    <Button
-        android:id="@+id/highscoreButton"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        android:text="High Score"
-        app:layout_constraintBottom_toTopOf="@+id/exitButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/resumeButton" />
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="Start new Game" />
 
-    <Button
-        android:id="@+id/exitButton"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        android:text="Exit"
-        app:layout_constraintBottom_toTopOf="@+id/sign_out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/highscoreButton"  />
+        <Button
+            android:id="@+id/resumeButton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="Resume last Game" />
 
-    <Button
-        android:id="@+id/sign_out"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="49dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        android:text="Sign Out"
-        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/exitButton"  />
+        <Button
+            android:id="@+id/highscoreButton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="High Score" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="42dp"
-        android:layout_marginStart="42dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_out"/>
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="Exit" />
 
+        <Button
+            android:id="@+id/logoutButton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="Sign Out" />
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</LinearLayout>
