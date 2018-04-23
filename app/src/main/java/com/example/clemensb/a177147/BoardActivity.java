@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 import domain.Coordinate;
+import domain.GameState;
 
 /**
  * Created by Jan Fleisch
@@ -121,7 +122,8 @@ public class BoardActivity extends Activity {
         highScoreView.setText("99999");
         //init board
 
-        initBoard();
+        //initBoard();
+        recoverState();
         //Button Click
         resetButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
@@ -139,21 +141,26 @@ public class BoardActivity extends Activity {
             public void onSwipeTop() {
                 shiftTop();
                 Log.d("Top", "Top");
+                saveState();
             }
             public void onSwipeRight() {
                 shiftRight();
                 Log.d("Right", "Right");
+                saveState();
             }
             public void onSwipeLeft() {
                 shiftLeft();
                 Log.d("Left", "Left");
+                saveState();
             }
             public void onSwipeBottom() {
                 shiftBottom();
                 Log.d("Botoom", "Bottom");
+                saveState();
             }
-
         });
+
+
     }
 
     private void initBoard(){
@@ -212,21 +219,11 @@ public class BoardActivity extends Activity {
         boolean shifted = false;
         for(int i = 0; i < board2DArray.length -1 ; i++) {
             for (int j = 0; j < board2DArray[i].length; j++) {
-             /*   int targetIndex = 0;
-                int shiftedElements = 0;
-                for( int sourceIndex = 0;  sourceIndex < board2DArray[i].length;  sourceIndex++ ) {
-                    if( !isEmptyField(i, sourceIndex)) {
-                        board2DArray[targetIndex++][j].setText(board2DArray[sourceIndex][j].getText());
-                        board2DArray[sourceIndex][j].setText("");
-                        shiftedElements++;
-                    }
-                }
-                for(int z = 0; z < shiftedElements; z++){
-                    board2DArray[board2DArray.length - 1 - z][j].setText("");
-                }*/
+                boolean merged = false;
                 if (board2DArray[i][j].getText().equals(board2DArray[i+1][j].getText()) || isEmptyField(i+1, j)) {
                     merge(new Coordinate(i, j), new Coordinate(i+1, j));
                     shifted = true;
+                    merged = true;
                 }
                 if(needsShift(board2DArray[i])){
                     shifted = true;
@@ -236,6 +233,10 @@ public class BoardActivity extends Activity {
                                 shift(new Coordinate(i, k), new Coordinate(i+1,k));
                             }
                         }
+                    }
+                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
+                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
+                        shifted = true;
                     }
                 }
             }
@@ -250,9 +251,11 @@ public class BoardActivity extends Activity {
         boolean shifted = false;
         for(int i = 0; i < board2DArray.length; i++) {
             for (int j = 0; j < board2DArray[i].length -1; j++) {
+                boolean merged = false;
                 if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1)) {
                     merge(new Coordinate(i, j), new Coordinate(i, j+1));
                     shifted = true;
+                    merged = true;
                 }
                 if(needsShift(board2DArray[i])){
                     shifted = true;
@@ -263,9 +266,13 @@ public class BoardActivity extends Activity {
                             }
                         }
                     }
+                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
+                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
+                        shifted = true;
+                    }
                 }
-            }
 
+            }
         }
         if(shifted) {
             spawnNumber();
@@ -276,9 +283,11 @@ public class BoardActivity extends Activity {
         boolean shifted = false;
         for(int i = board2DArray.length - 1; i >= 0; i--) {
             for (int j = board2DArray[i].length - 1; j > 0; j--) {
+                boolean merged = false;
                 if (board2DArray[i][j].getText().equals(board2DArray[i][j - 1].getText()) || isEmptyField(i, j - 1)) {
                     merge(new Coordinate(i, j), new Coordinate(i, j - 1));
                     shifted = true;
+                    merged = true;
                 }
                 if(needsShift(board2DArray[i])){
                     shifted = true;
@@ -288,6 +297,10 @@ public class BoardActivity extends Activity {
                                 shift(new Coordinate(i, k), new Coordinate(i, k-1));
                             }
                         }
+                    }
+                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
+                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
+                        shifted = true;
                     }
                 }
             }
@@ -302,9 +315,11 @@ public class BoardActivity extends Activity {
         boolean shifted = false;
         for(int i = board2DArray.length - 1; i > 0; i--) {
             for (int j = board2DArray[i].length - 1; j >= 0; j--) {
+                boolean merged = false;
                 if (board2DArray[i][j].getText().equals(board2DArray[i-1][j].getText()) || isEmptyField(i-1, j)) {
                     merge(new Coordinate(i, j), new Coordinate(i-1, j));
                     shifted = true;
+                    merged = true;
                 }
                 if(needsShift(board2DArray[i])){
                     shifted = true;
@@ -314,6 +329,10 @@ public class BoardActivity extends Activity {
                                 shift(new Coordinate(i, k), new Coordinate(i-1, k));
                             }
                         }
+                    }
+                    if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
+                        merge(new Coordinate(i, j), new Coordinate(i, j+1));
+                        shifted = true;
                     }
                 }
             }
@@ -366,6 +385,36 @@ public class BoardActivity extends Activity {
             return Integer.parseInt(s);
         }
         return -1;
+    }
+
+    private void saveState(){
+        GameState state = GameState.getInstance();
+        String[][] currentState = convertStateToStringArray();
+        state.setState(currentState);
+    }
+
+    private String[][] convertStateToStringArray(){
+        String[][] state = new String[board2DArray.length][board2DArray[0].length];
+        for(int i = 0; i < state.length; i++){
+            for(int j = 0; j < state[i].length; j++){
+                state[i][j] = board2DArray[i][j].getText().toString();
+            }
+        }
+        return state;
+    }
+
+    public void recoverState(){
+        GameState state = GameState.getInstance();
+        if(!state.isEmptyState()) {
+            String[][] savedState = state.getState();
+            for (int i = 0; i < board2DArray.length; i++) {
+                for (int j = 0; j < board2DArray[i].length; j++) {
+                    board2DArray[i][j].setText(savedState[i][j]);
+                }
+            }
+        } else {
+            initBoard();
+        }
     }
 
 }
