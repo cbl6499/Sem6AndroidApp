@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     // TextView to Show Login User Email and Name.
     //TextView LoginUserName, LoginUserEmail;
 
-    Button hsButton, clickButton, exitButton, resumeButton;
+    Button hsButton, clickButton, exitButton, resumeButton, logoutButton;
 
     UserSessionManagement user;
 
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
         clickButton = (Button) findViewById(R.id.startButton);
 
         hsButton = (Button) findViewById(R.id.highscoreButton);
+
+        logoutButton = (Button) findViewById(R.id.logoutButton);
 
         exitButton = (Button) findViewById(R.id.exitButton);
 
@@ -105,9 +107,7 @@ public class MainActivity extends AppCompatActivity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 UserSignInMethod();
-
             }
         });
 
@@ -133,12 +133,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        exitButton.setOnClickListener(new View.OnClickListener() {
+        logoutButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //android.os.Process.killProcess(android.os.Process.myPid());
                 //Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 //startActivity(intent);
                 UserSignOutFunction();
+            }
+        });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                android.os.Process.killProcess(android.os.Process.myPid());
             }
         });
 
@@ -157,13 +163,14 @@ public class MainActivity extends AppCompatActivity {
             hsButton.setVisibility(View.VISIBLE);
             exitButton.setVisibility(View.VISIBLE);
             resumeButton.setVisibility(View.VISIBLE);
+            logoutButton.setVisibility(View.VISIBLE);
         } else {
             clickButton.setVisibility(View.GONE);
             exitButton.setVisibility(View.GONE);
             hsButton.setVisibility(View.GONE);
             signInButton.setVisibility(View.VISIBLE);
             resumeButton.setVisibility(View.GONE);
-
+            logoutButton.setVisibility(View.GONE);
         }
     }
 
@@ -223,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
 
                             // Showing Log out button.
+                            logoutButton.setVisibility(View.VISIBLE);
                             exitButton.setVisibility(View.VISIBLE);
 
                             // Hiding Login in button.
@@ -264,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
         exitButton.setVisibility(View.GONE);
         hsButton.setVisibility(View.GONE);
         resumeButton.setVisibility(View.GONE);
+        logoutButton.setVisibility(View.GONE);
 
         // After logout setting up login button visibility to visible.
         signInButton.setVisibility(View.VISIBLE);
