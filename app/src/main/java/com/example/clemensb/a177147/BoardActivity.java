@@ -198,7 +198,10 @@ public class BoardActivity extends Activity {
         //if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())) {
             int valueA = getIntValue((String) board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
-            int result = Math.abs(valueA) * 3;// Math.abs(valueB); //*3
+            int result = Math.abs(valueA);
+            if(valueB != -1){
+                result = Math.abs(valueA) * 3;//Math.abs(valueB); //*3
+            }
         //}
         if(result != 1) {
             board2DArray[a.getX()][a.getY()].setText(result + "");
@@ -352,10 +355,10 @@ public class BoardActivity extends Activity {
                 }
             }
         }
-        if(free.size() > 0) {
+        //if(free.size() > 0) {
             int value = rand.nextInt(free.size());
             board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
-        }
+        //}
     }
 
     private void shift(Coordinate a, Coordinate b){
