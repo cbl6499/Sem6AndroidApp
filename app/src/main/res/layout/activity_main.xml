@@ -51,6 +51,12 @@
             android:text="High Score" />
 
         <Button
+            android:id="@+id/inviteButton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="Invite Friends" />
+
+        <Button
             android:id="@+id/exitButton"
             android:layout_width="300dp"
             android:layout_height="75dp"

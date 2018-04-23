@@ -2,6 +2,7 @@ package com.example.clemensb.a177147;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -26,6 +28,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.appinvite.FirebaseAppInvite;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import java.util.Locale;
 
@@ -53,9 +57,11 @@ public class MainActivity extends AppCompatActivity {
     // TextView to Show Login User Email and Name.
     //TextView LoginUserName, LoginUserEmail;
 
-    Button hsButton, clickButton, exitButton, resumeButton, logoutButton;
+    Button hsButton, clickButton, exitButton, resumeButton, logoutButton, inviteButton;
 
     UserSessionManagement user;
+
+    private static final int REQUEST_INVITE = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         exitButton = (Button) findViewById(R.id.exitButton);
 
         resumeButton = (Button) findViewById(R.id.resumeButton);
+
+        inviteButton = (Button) findViewById(R.id.inviteButton);
 
         // Getting Firebase Auth Instance into firebaseAuth object.
         firebaseAuth = FirebaseAuth.getInstance();
@@ -142,6 +150,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        inviteButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                onInviteClicked();
+            }
+        });
+
         exitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 android.os.Process.killProcess(android.os.Process.myPid());
@@ -164,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
             exitButton.setVisibility(View.VISIBLE);
             resumeButton.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
+            inviteButton.setVisibility(View.VISIBLE);
         } else {
             clickButton.setVisibility(View.GONE);
             exitButton.setVisibility(View.GONE);
@@ -171,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
             signInButton.setVisibility(View.VISIBLE);
             resumeButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.GONE);
+            inviteButton.setVisibility(View.GONE);
         }
     }
 
@@ -238,6 +254,7 @@ public class MainActivity extends AppCompatActivity {
 
                             clickButton.setVisibility(View.VISIBLE);
                             hsButton.setVisibility(View.VISIBLE);
+                            inviteButton.setVisibility(View.VISIBLE);
 
                             resumeButton.setVisibility(View.VISIBLE);
 
@@ -273,9 +290,19 @@ public class MainActivity extends AppCompatActivity {
         hsButton.setVisibility(View.GONE);
         resumeButton.setVisibility(View.GONE);
         logoutButton.setVisibility(View.GONE);
+        inviteButton.setVisibility(View.GONE);
 
         // After logout setting up login button visibility to visible.
         signInButton.setVisibility(View.VISIBLE);
+    }
+
+    private void onInviteClicked() {
+        Intent intent = new AppInviteInvitation.IntentBuilder("177147 App Invite")
+                .setMessage("177147")
+                .setDeepLink(Uri.parse("https://github.com/cbl6499/Sem6AndroidApp"))
+                .setCallToActionText("click here")
+                .build();
+        startActivityForResult(intent, REQUEST_INVITE);
     }
 
 }
