@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button hsButton, clickButton, exitButton, resumeButton;
 
+    UserSessionManagement user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,17 +62,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //System.out.println(Locale.getDefault().getDisplayLanguage().toString());
-        //System.out.println(getString(R.string.app_name));
-
-        //setContentView(R.layout.activity_main);
 
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
-
-        //LoginUserName = (TextView) findViewById(R.id.textViewName);
-
-        //LoginUserEmail = (TextView) findViewById(R.id.textViewEmail);
 
         signInButton = (com.google.android.gms.common.SignInButton) findViewById(R.id.sign_in_button);
 
@@ -139,25 +132,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        user = UserSessionManagement.getInstance();
+
         check();
 
     }
 
     public void check() {
-        if (googleApiClient != null || googleApiClient.isConnected()) {
+        if(user.getLogin()){
             // Hiding Login in button.
             signInButton.setVisibility(View.GONE);
 
-            // Showing the TextView.
-            //LoginUserEmail.setVisibility(View.VISIBLE);
-            //LoginUserName.setVisibility(View.VISIBLE);
             clickButton.setVisibility(View.VISIBLE);
             hsButton.setVisibility(View.VISIBLE);
             exitButton.setVisibility(View.VISIBLE);
             resumeButton.setVisibility(View.VISIBLE);
         } else {
-            //LoginUserEmail.setVisibility(View.GONE);
-            //LoginUserName.setVisibility(View.GONE);
             clickButton.setVisibility(View.GONE);
             exitButton.setVisibility(View.GONE);
             hsButton.setVisibility(View.GONE);
@@ -174,7 +164,6 @@ public class MainActivity extends AppCompatActivity {
         Intent AuthIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
 
         startActivityForResult(AuthIntent, RequestSignInCode);
-
     }
 
     @Override
@@ -190,9 +179,14 @@ public class MainActivity extends AppCompatActivity {
 
                 GoogleSignInAccount googleSignInAccount = googleSignInResult.getSignInAccount();
 
-                Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_LONG).show();
 
                 FirebaseUserAuth(googleSignInAccount);
+
+                user.setUserData(googleSignInAccount);
+
+                Toast.makeText(MainActivity.this, user.getName() + "  |  " + user.getEmail(), Toast.LENGTH_LONG).show();
+
             }else{
                 Toast.makeText(MainActivity.this, "Login failed, something went wrong!!", Toast.LENGTH_LONG).show();
             }
@@ -224,19 +218,10 @@ public class MainActivity extends AppCompatActivity {
                             // Hiding Login in button.
                             signInButton.setVisibility(View.GONE);
 
-                            // Showing the TextView.
-                            //LoginUserEmail.setVisibility(View.VISIBLE);
-                            //LoginUserName.setVisibility(View.VISIBLE);
                             clickButton.setVisibility(View.VISIBLE);
                             hsButton.setVisibility(View.VISIBLE);
 
                             resumeButton.setVisibility(View.VISIBLE);
-
-                            // Setting up name into TextView.
-                            //LoginUserName.setText("NAME = " + firebaseUser.getDisplayName().toString());
-
-                            // Setting up Email into TextView.
-                            //LoginUserEmail.setText("Email = " + firebaseUser.getEmail().toString());
 
                         } else {
                             Toast.makeText(MainActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
@@ -249,6 +234,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Sing Out the User.
         firebaseAuth.signOut();
+
+        user.logout(MainActivity.this);
 
         Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
@@ -263,17 +250,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        // After logout Hiding sign out button.
-        //LoginUserEmail.setVisibility(View.GONE);
-        //LoginUserName.setVisibility(View.GONE);
         clickButton.setVisibility(View.GONE);
         exitButton.setVisibility(View.GONE);
         hsButton.setVisibility(View.GONE);
         resumeButton.setVisibility(View.GONE);
-
-        // After logout setting up email and name to null.
-        //LoginUserName.setText(null);
-        //LoginUserEmail.setText(null);
 
         // After logout setting up login button visibility to visible.
         signInButton.setVisibility(View.VISIBLE);
