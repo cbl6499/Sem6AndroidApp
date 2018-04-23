@@ -160,10 +160,10 @@ public class BoardActivity extends Activity {
             }
         });
 
-
     }
 
     private void initBoard(){
+        this.score = 0;
         for(int i = 0; i < board2DArray.length; i++){
             for(int j = 0; j < board2DArray[i].length; j++){
                 board2DArray[i][j].setText("");
@@ -198,7 +198,7 @@ public class BoardActivity extends Activity {
         //if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())) {
             int valueA = getIntValue((String) board2DArray[a.getX()][a.getY()].getText());
             int valueB = getIntValue((String) board2DArray[b.getX()][b.getY()].getText());
-            int result = Math.abs(valueA) * Math.abs(valueB); //*3
+            int result = Math.abs(valueA) * 3;// Math.abs(valueB); //*3
         //}
         if(result != 1) {
             board2DArray[a.getX()][a.getY()].setText(result + "");
@@ -271,7 +271,6 @@ public class BoardActivity extends Activity {
                         shifted = true;
                     }
                 }
-
             }
         }
         if(shifted) {
@@ -353,8 +352,10 @@ public class BoardActivity extends Activity {
                 }
             }
         }
-        int value = rand.nextInt(free.size());
-        board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
+        if(free.size() > 0) {
+            int value = rand.nextInt(free.size());
+            board2DArray[free.get(value).getX()][free.get(value).getY()].setText("3");
+        }
     }
 
     private void shift(Coordinate a, Coordinate b){
@@ -391,6 +392,28 @@ public class BoardActivity extends Activity {
         GameState state = GameState.getInstance();
         String[][] currentState = convertStateToStringArray();
         state.setState(currentState);
+        state.setScore(score);
+        /*int evaluate = state.evaluateState();
+        if(evaluate == 1){
+            Intent intent = new Intent(BoardActivity.this, EvaluateActivity.class);
+            startActivity(intent);
+            //display win
+            Log.d("Win", "You win");
+        } else if(evaluate == -1){
+            //display lose
+            Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
+            startActivity(intent);
+            Log.d("Lost", "You lost");
+        } else {
+            Log.d("Playing", "Keep going");
+            //keep going
+        }*/
+        if(state.evaluateState() != 0){
+            Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
+            startActivity(intent);
+        } else {
+            Log.d("Playing", "Keep going");
+        }
     }
 
     private String[][] convertStateToStringArray(){
@@ -406,6 +429,7 @@ public class BoardActivity extends Activity {
     public void recoverState(){
         GameState state = GameState.getInstance();
         if(!state.isEmptyState()) {
+            this.score = state.getScore();
             String[][] savedState = state.getState();
             for (int i = 0; i < board2DArray.length; i++) {
                 for (int j = 0; j < board2DArray[i].length; j++) {
