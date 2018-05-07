@@ -1,5 +1,7 @@
 package domain;
 
+import android.util.Log;
+
 import com.example.clemensb.a177147.BoardActivity;
 import com.example.clemensb.a177147.User;
 import com.example.clemensb.a177147.UserSessionManagement;
@@ -8,6 +10,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.io.Console;
 import java.util.HashMap;
@@ -152,6 +155,7 @@ public class GameState {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
                 //convertPersistentStateToGameState((HashMap)dataSnapshot.getValue());
+                Log.d("Loading", "Loading in onchildadded");
                 GameState currentState = GameState.getInstance();
                 currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
                 currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
@@ -160,6 +164,7 @@ public class GameState {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d("Loading", "Loading in onchildchanged");
                 GameState currentState = GameState.getInstance();
                 currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
                 currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
@@ -168,6 +173,7 @@ public class GameState {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                Log.d("Loading", "Loading in onchildremoved");
                 GameState currentState = GameState.getInstance();
                 currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
                 currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
@@ -176,6 +182,7 @@ public class GameState {
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                Log.d("Loading", "Loading in onchildmoved");
                 GameState currentState = GameState.getInstance();
                 currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
                 currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
