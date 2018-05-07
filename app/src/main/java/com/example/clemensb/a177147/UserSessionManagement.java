@@ -27,11 +27,14 @@ public class UserSessionManagement {
 
     private String name;
 
+    private String username;
+
     private String email;
 
     public void setUserData(GoogleSignInAccount googleSignInAccount){
         name = googleSignInAccount.getDisplayName();
         email = googleSignInAccount.getEmail();
+        username = googleSignInAccount.getDisplayName();
         login = true;
     }
 
@@ -46,6 +49,8 @@ public class UserSessionManagement {
     public Boolean getLogin(){
         return login;
     }
+
+    public String getUsername(){return username;}
 
     public void logout(Context context){
         //name = "";

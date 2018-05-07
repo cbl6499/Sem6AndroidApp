@@ -36,30 +36,11 @@
         android:layout_height="75dp"
         android:text="Classic" />
 
-    <Button
-        android:id="@+id/hardcore"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:text="Hardcore"
-        />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_weight="35">
-    <Button
-        android:id="@+id/veganmode"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:text="Vegan Mode" />
-
-    <Button
-        android:id="@+id/backbutton"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
-        android:text="Back" />
+        <Button
+            android:id="@+id/backbutton"
+            android:layout_width="300dp"
+            android:layout_height="75dp"
+            android:text="Back" />
 
     </LinearLayout>
 </LinearLayout>

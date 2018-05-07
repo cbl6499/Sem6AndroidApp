@@ -60,7 +60,7 @@ public class HSTableActivity extends AppCompatActivity {
                 for(DataSnapshot ds : childs){
                     User newUser = new User();
                     newUser.setUserName(ds.getKey());
-                    newUser.setScore(ds.getValue(User.class).getScore());
+                    newUser.setScore((int)(long)ds.getValue());
                     //System.out.println(newUser.getUserName() + " : " + newUser.getScore());
                     users.add(newUser);
                 }
