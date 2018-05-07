@@ -1,5 +1,18 @@
 package domain;
 
+import com.example.clemensb.a177147.BoardActivity;
+import com.example.clemensb.a177147.User;
+import com.example.clemensb.a177147.UserSessionManagement;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Console;
+import java.util.HashMap;
+import java.util.List;
+
 public class GameState {
 
     private String[][] state;
@@ -22,6 +35,10 @@ public class GameState {
     public void init(int rows, int columns){
         this.state = new String[4][4];
         clear();
+    }
+
+    public void setWon(boolean won){
+        this.won = won;
     }
 
     public void setScore(int score){
@@ -125,6 +142,71 @@ public class GameState {
         } else {
             return -1;
         }
+    }
+
+
+    public GameState loadState(){
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("GameState");
+        mUserRef.orderByKey().equalTo(UserSessionManagement.getInstance().getUsername()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+                //convertPersistentStateToGameState((HashMap)dataSnapshot.getValue());
+                GameState currentState = GameState.getInstance();
+                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
+                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                GameState currentState = GameState.getInstance();
+                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
+                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                GameState currentState = GameState.getInstance();
+                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
+                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                GameState currentState = GameState.getInstance();
+                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
+                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+            // ...
+        });;//(BoardActivity.PersistentState) mUserRef.child(UserSessionManagement.getInstance().getUsername());
+        return this;
+    }
+
+    private void convertPersistentStateToGameState(HashMap<String, Object> value){
+        //BoardActivity.PersistentState state = (BoardActivity.PersistentState) value;
+      /*  GameState currentState = GameState.getInstance();
+        currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getScore());
+        currentState.setScore((int)(long)value.get("currentScore"));//((BoardActivity.PersistentState) value).getCurrentScore());
+        currentState.setState(convertListToStringArray((List<BoardActivity.ListElement>)value.get("state")));
+        currentState.setWon((Boolean) value.get("won"));*/
+    }
+
+    private String[][] convertListToStringArray(List<BoardActivity.ListElement> list){
+        String[][] state = new String[4][4];
+        for(BoardActivity.ListElement element : list){
+            state[element.getCoordinate().getX()][element.getCoordinate().getY()] = element.getValue();
+        }
+        return state;
     }
 
     private boolean canMerge(String a, String b){

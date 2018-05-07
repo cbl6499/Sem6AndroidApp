@@ -213,10 +213,10 @@ public class BoardActivity extends Activity {
         if(result != 1) {
             board2DArray[a.getX()][a.getY()].setText(result + "");
             board2DArray[b.getX()][b.getY()].setText("");
-            if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())){
+            //if(!isEmptyField(a.getX(), a.getY()) && !isEmptyField(b.getX(), b.getY())){
                 score += result;
                 scoreView.setText(score + "");
-            }
+            //}
         }
 
     }
@@ -435,6 +435,9 @@ public class BoardActivity extends Activity {
             Log.d("Playing", "Keep going");
             //keep going
         }*/
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("GameState");
+        mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin()));
         if(state.evaluateState() != 0){
             Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
             startActivity(intent);
@@ -454,7 +457,7 @@ public class BoardActivity extends Activity {
     }
 
     public void recoverState(){
-        GameState state = GameState.getInstance();
+        GameState state = GameState.getInstance().loadState();
         if(!state.isEmptyState()) {
             this.score = state.getScore();
             String[][] savedState = state.getState();
@@ -463,6 +466,7 @@ public class BoardActivity extends Activity {
                     board2DArray[i][j].setText(savedState[i][j]);
                 }
             }
+            //GameState.getInstance().loadState();
         } else {
             initBoard();
         }
@@ -470,13 +474,95 @@ public class BoardActivity extends Activity {
 
     public void onDestroy(){
         super.onDestroy();
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserRef = mRootRef.child("GameState");
-        mUserRef.child(UserSessionManagement.getInstance().getName()).setValue(GameState.getInstance());
+        saveState();
     }
 
     public void onTerminate(){
         onDestroy();
+    }
+
+    private List<ListElement> convertArrayToList(){
+        List<ListElement> state = new ArrayList<>();
+        String[][] currentState = GameState.getInstance().getState();
+        for(int i = 0; i < currentState.length; i++){
+            for(int j = 0; j < currentState[i].length; j++){
+                state.add(new ListElement(new Coordinate(i, j), currentState[i][j]));
+            }
+        }
+        return state;
+    }
+
+    public static class PersistentState{
+        List<ListElement> _state;
+        int _score;
+        boolean _won;
+
+        public PersistentState(){
+
+        }
+        public PersistentState(List<ListElement> state, int score, boolean won){
+            _state = state;
+            _score = score;
+            _won = won;
+        }
+
+        public List<ListElement> getState(){
+            return _state;
+        }
+
+        public int getCurrentScore(){
+            return _score;
+        }
+
+        public boolean getWin(){
+            return _won;
+        }
+
+        public void setState(List<ListElement> state){
+            _state = state;
+        }
+
+        public void setCurrentScore(int score){
+            _score = score;
+        }
+
+        public void setWin(boolean win){
+            _won = win;
+        }
+
+        public void setWon(boolean win){
+            _won = win;
+        }
+    }
+
+    public static class ListElement{
+        Coordinate _coordinate;
+        String _value;
+
+        public ListElement(){
+
+        }
+
+        public ListElement(Coordinate coordinate, String value){
+            _coordinate = coordinate;
+            _value = value;
+        }
+
+        public String getValue(){
+            return _value;
+        }
+
+        public Coordinate getCoordinate(){
+            return _coordinate;
+        }
+
+        public void setValue(String value){
+            _value = value;
+        }
+
+        public void setCoordinate(Coordinate coordinate){
+            _coordinate = coordinate;
+        }
     }
 
 }

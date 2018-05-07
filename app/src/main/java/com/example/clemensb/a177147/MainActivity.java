@@ -131,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GameModesActivity.class);
+                //GameState.getInstance().loadState();
+                Intent intent = new Intent(MainActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
         });
