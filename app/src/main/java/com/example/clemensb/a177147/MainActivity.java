@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import domain.GameState;
@@ -137,7 +138,10 @@ public class MainActivity extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //GameState.getInstance().loadState();
+                GameState.getInstance().loadState();
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mUserRef = mRootRef.child("GameState");
+                mUserRef.child("system").setValue(new BoardActivity.PersistentState(new ArrayList<BoardActivity.ListElement>(), 0, false));
                 Intent intent = new Intent(MainActivity.this, BoardActivity.class);
                 startActivity(intent);
             }

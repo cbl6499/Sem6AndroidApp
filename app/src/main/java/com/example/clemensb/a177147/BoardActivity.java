@@ -16,8 +16,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -128,7 +130,23 @@ public class BoardActivity extends Activity {
         highScoreView = findViewById(R.id.highscore);
         highScoreView.setText("99999");
         //init board
+      /*  DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("GameState");
+        mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("Loading", "Loading in constructor");
+                GameState currentState = GameState.getInstance();
+                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                currentState.setState(GameState.getInstance().convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
+                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
         //initBoard();
         recoverState();
         //Button Click

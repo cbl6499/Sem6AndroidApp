@@ -196,6 +196,7 @@ public class GameState {
 
             // ...
         });;//(BoardActivity.PersistentState) mUserRef.child(UserSessionManagement.getInstance().getUsername());
+
         return this;
     }
 
@@ -208,7 +209,7 @@ public class GameState {
         currentState.setWon((Boolean) value.get("won"));*/
     }
 
-    private String[][] convertListToStringArray(List<BoardActivity.ListElement> list){
+    public String[][] convertListToStringArray(List<BoardActivity.ListElement> list){
         String[][] state = new String[4][4];
         for(BoardActivity.ListElement element : list){
             state[element.getCoordinate().getX()][element.getCoordinate().getY()] = element.getValue();
