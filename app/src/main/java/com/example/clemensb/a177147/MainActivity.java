@@ -1,8 +1,12 @@
 package com.example.clemensb.a177147;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,8 +33,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.appinvite.FirebaseAppInvite;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import domain.GameState;
@@ -48,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Google API Client object.
     public GoogleApiClient googleApiClient;
+
+    private NotificationUtils mNotificationUtils;
 
     // Sing out button.
 
@@ -79,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         styleButton = (Button) findViewById(R.id.styleButton);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -86,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
         } else{
             styleButton.setText("Day");
         }
+
+        mNotificationUtils = new NotificationUtils(this);
+
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -146,7 +159,11 @@ public class MainActivity extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GameModesActivity.class);
+                GameState.getInstance().loadState();
+                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+                DatabaseReference mUserRef = mRootRef.child("GameState");
+                mUserRef.child("system").setValue(new BoardActivity.PersistentState(new ArrayList<BoardActivity.ListElement>(), 0, false));
+                Intent intent = new Intent(MainActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
         });
@@ -163,7 +180,16 @@ public class MainActivity extends AppCompatActivity {
                 //android.os.Process.killProcess(android.os.Process.myPid());
                 //Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 //startActivity(intent);
-                UserSignOutFunction();
+                //UserSignOutFunction();
+                String title = "This is a notification test";
+                String author = "Goht di garnix a";
+
+                if(!title.isEmpty() && !author.isEmpty()) {
+                    Notification.Builder nb = mNotificationUtils.
+                            getAndroidChannelNotification(title, "By " + author);
+
+                    mNotificationUtils.getManager().notify(101, nb.build());
+                }
             }
         });
 
@@ -330,6 +356,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
     }
+
 
     public void switchStyle(){
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
