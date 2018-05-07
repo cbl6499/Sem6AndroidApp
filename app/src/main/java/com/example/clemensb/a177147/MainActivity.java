@@ -29,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.appinvite.FirebaseAppInvite;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import java.util.Locale;
@@ -303,6 +305,16 @@ public class MainActivity extends AppCompatActivity {
                 .setCallToActionText("click here")
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("UserHighScore");
+    }
+
+    public void onTerminate(){
+
     }
 
 }
