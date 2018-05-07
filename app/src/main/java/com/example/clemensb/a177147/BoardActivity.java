@@ -15,6 +15,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -462,6 +466,17 @@ public class BoardActivity extends Activity {
         } else {
             initBoard();
         }
+    }
+
+    public void onDestroy(){
+        super.onDestroy();
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("GameState");
+        mUserRef.child(UserSessionManagement.getInstance().getName()).setValue(GameState.getInstance());
+    }
+
+    public void onTerminate(){
+        onDestroy();
     }
 
 }

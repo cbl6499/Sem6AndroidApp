@@ -307,14 +307,6 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, REQUEST_INVITE);
     }
 
-    public void onDestroy(){
-        super.onDestroy();
-        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserRef = mRootRef.child("UserHighScore");
-    }
 
-    public void onTerminate(){
-
-    }
 
 }
