@@ -1,8 +1,12 @@
 package com.example.clemensb.a177147;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     // Google API Client object.
     public GoogleApiClient googleApiClient;
 
+    private NotificationUtils mNotificationUtils;
+
     // Sing out button.
 
     // Google Sign In button .
@@ -72,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        mNotificationUtils = new NotificationUtils(this);
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -148,7 +154,16 @@ public class MainActivity extends AppCompatActivity {
                 //android.os.Process.killProcess(android.os.Process.myPid());
                 //Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 //startActivity(intent);
-                UserSignOutFunction();
+                //UserSignOutFunction();
+                String title = "This is a notification test";
+                String author = "Goht di garnix a";
+
+                if(!title.isEmpty() && !author.isEmpty()) {
+                    Notification.Builder nb = mNotificationUtils.
+                            getAndroidChannelNotification(title, "By " + author);
+
+                    mNotificationUtils.getManager().notify(101, nb.build());
+                }
             }
         });
 
@@ -306,7 +321,4 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
     }
-
-
-
 }
