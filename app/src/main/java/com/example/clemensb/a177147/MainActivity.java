@@ -6,9 +6,9 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -57,20 +57,35 @@ public class MainActivity extends AppCompatActivity {
     // TextView to Show Login User Email and Name.
     //TextView LoginUserName, LoginUserEmail;
 
-    Button hsButton, clickButton, exitButton, resumeButton, logoutButton, inviteButton;
+    //
+
+    Button hsButton, clickButton, exitButton, resumeButton, logoutButton, inviteButton, styleButton;
 
     UserSessionManagement user;
 
     private static final int REQUEST_INVITE = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.FeedActivityThemeDark);
+        } else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            setTheme(R.style.FeedActivityThemeLight);
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        styleButton = (Button) findViewById(R.id.styleButton);
 
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            styleButton.setText("Night");
+        } else{
+            styleButton.setText("Day");
+        }
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
 
@@ -87,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         resumeButton = (Button) findViewById(R.id.resumeButton);
 
         inviteButton = (Button) findViewById(R.id.inviteButton);
+
+
 
         // Getting Firebase Auth Instance into firebaseAuth object.
         firebaseAuth = FirebaseAuth.getInstance();
@@ -156,6 +173,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        styleButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                switchStyle();
+            }
+        });
+
         exitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 android.os.Process.killProcess(android.os.Process.myPid());
@@ -173,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
             // Hiding Login in button.
             signInButton.setVisibility(View.GONE);
 
+            styleButton.setVisibility(View.VISIBLE);
             clickButton.setVisibility(View.VISIBLE);
             hsButton.setVisibility(View.VISIBLE);
             exitButton.setVisibility(View.VISIBLE);
@@ -187,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
             resumeButton.setVisibility(View.GONE);
             logoutButton.setVisibility(View.GONE);
             inviteButton.setVisibility(View.GONE);
+            styleButton.setVisibility(View.GONE);
         }
     }
 
@@ -255,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                             clickButton.setVisibility(View.VISIBLE);
                             hsButton.setVisibility(View.VISIBLE);
                             inviteButton.setVisibility(View.VISIBLE);
-
+                            styleButton.setVisibility(View.VISIBLE);
                             resumeButton.setVisibility(View.VISIBLE);
 
                         } else {
@@ -291,6 +316,7 @@ public class MainActivity extends AppCompatActivity {
         resumeButton.setVisibility(View.GONE);
         logoutButton.setVisibility(View.GONE);
         inviteButton.setVisibility(View.GONE);
+        styleButton.setVisibility(View.GONE);
 
         // After logout setting up login button visibility to visible.
         signInButton.setVisibility(View.VISIBLE);
@@ -303,6 +329,17 @@ public class MainActivity extends AppCompatActivity {
                 .setCallToActionText("click here")
                 .build();
         startActivityForResult(intent, REQUEST_INVITE);
+    }
+
+    public void switchStyle(){
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            recreate();
+
+        } else if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            recreate();
+        }
     }
 
 }

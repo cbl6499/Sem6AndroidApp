@@ -15,8 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,16 +25,13 @@
         <activity
             android:name=".BoardActivity"
             android:label="177147"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".GameModesActivity"
-            android:label="177147"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:label="177147" />
         <activity
             android:name=".StartActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:label="@string/title_activity_login">
 
             <!--
                 <intent-filter>
