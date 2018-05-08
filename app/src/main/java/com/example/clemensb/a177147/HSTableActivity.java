@@ -2,6 +2,7 @@ package com.example.clemensb.a177147;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -37,6 +38,7 @@ public class HSTableActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("TEST");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hstable);
         users = new ArrayList<>();
