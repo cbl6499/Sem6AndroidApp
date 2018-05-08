@@ -148,6 +148,7 @@ public class BoardActivity extends Activity {
             }
         });*/
         //initBoard();
+        GameState.getInstance().loadState();
         recoverState();
         //Button Click
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -455,7 +456,7 @@ public class BoardActivity extends Activity {
         }*/
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mUserRef = mRootRef.child("GameState");
-        mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin()));
+        mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin(), true));
         if(state.evaluateState() != 0){
             Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
             startActivity(intent);
@@ -475,7 +476,7 @@ public class BoardActivity extends Activity {
     }
 
     public void recoverState(){
-        GameState state = GameState.getInstance().loadState();
+        GameState state = GameState.getInstance();
         if(!state.isEmptyState()) {
             this.score = state.getScore();
             String[][] savedState = state.getState();
@@ -514,14 +515,16 @@ public class BoardActivity extends Activity {
         List<ListElement> _state;
         int _score;
         boolean _won;
+        boolean _loaded = false;
 
         public PersistentState(){
 
         }
-        public PersistentState(List<ListElement> state, int score, boolean won){
+        public PersistentState(List<ListElement> state, int score, boolean won, boolean loaded){
             _state = state;
             _score = score;
             _won = won;
+            _loaded = loaded;
         }
 
         public List<ListElement> getState(){
@@ -530,6 +533,13 @@ public class BoardActivity extends Activity {
 
         public int getCurrentScore(){
             return _score;
+        }
+
+        public boolean getLoaded(){
+            return _loaded;
+        }
+        public void setLoaded(boolean loaded){
+            _loaded = loaded;
         }
 
         public boolean getWin(){

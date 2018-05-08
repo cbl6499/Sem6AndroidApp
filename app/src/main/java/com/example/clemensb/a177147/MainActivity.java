@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,6 +34,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.appinvite.FirebaseAppInvite;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
@@ -58,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
     private NotificationUtils mNotificationUtils;
 
+    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mUserRef = mRootRef.child("GameState");
+
     // Sing out button.
 
     // Google Sign In button .
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mNotificationUtils = new NotificationUtils(this);
@@ -138,10 +146,8 @@ public class MainActivity extends AppCompatActivity {
 
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                GameState.getInstance().loadState();
-                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference mUserRef = mRootRef.child("GameState");
-                mUserRef.child("system").setValue(new BoardActivity.PersistentState(new ArrayList<BoardActivity.ListElement>(), 0, false));
+                //GameState.getInstance().loadState();
+
                 Intent intent = new Intent(MainActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
@@ -186,7 +192,10 @@ public class MainActivity extends AppCompatActivity {
 
         user = UserSessionManagement.getInstance();
 
+
         check();
+
+        //mUserRef.child(UserSessionManagement.getInstance().getUsername()).child("loaded").setValue(true);
 
     }
 
@@ -241,6 +250,8 @@ public class MainActivity extends AppCompatActivity {
                 user.setUserData(googleSignInAccount);
 
                 Toast.makeText(MainActivity.this, user.getName() + "  |  " + user.getEmail(), Toast.LENGTH_LONG).show();
+
+                mUserRef.child(UserSessionManagement.getInstance().getUsername()).child("loaded").setValue(false);
 
             }else{
                 Toast.makeText(MainActivity.this, "Login failed, something went wrong!!", Toast.LENGTH_LONG).show();

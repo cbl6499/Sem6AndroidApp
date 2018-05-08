@@ -11,6 +11,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
 import java.util.HashMap;
@@ -151,6 +152,23 @@ public class GameState {
     public GameState loadState(){
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mUserRef = mRootRef.child("GameState");
+
+        mUserRef.child(UserSessionManagement.getInstance().getUsername()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("Loading", "Loading in onDataChanged, I AM DOING SOME SHIT");
+                GameState currentState = GameState.getInstance();
+
+                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                currentState.setState(convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
+                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         mUserRef.orderByKey().equalTo(UserSessionManagement.getInstance().getUsername()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
@@ -196,23 +214,17 @@ public class GameState {
 
             // ...
         });;//(BoardActivity.PersistentState) mUserRef.child(UserSessionManagement.getInstance().getUsername());
-
+        mUserRef.child(UserSessionManagement.getInstance().getUsername()).child("loaded").setValue(true);
         return this;
     }
 
-    private void convertPersistentStateToGameState(HashMap<String, Object> value){
-        //BoardActivity.PersistentState state = (BoardActivity.PersistentState) value;
-      /*  GameState currentState = GameState.getInstance();
-        currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getScore());
-        currentState.setScore((int)(long)value.get("currentScore"));//((BoardActivity.PersistentState) value).getCurrentScore());
-        currentState.setState(convertListToStringArray((List<BoardActivity.ListElement>)value.get("state")));
-        currentState.setWon((Boolean) value.get("won"));*/
-    }
 
     public String[][] convertListToStringArray(List<BoardActivity.ListElement> list){
         String[][] state = new String[4][4];
-        for(BoardActivity.ListElement element : list){
-            state[element.getCoordinate().getX()][element.getCoordinate().getY()] = element.getValue();
+        if(list != null) {
+            for (BoardActivity.ListElement element : list) {
+                state[element.getCoordinate().getX()][element.getCoordinate().getY()] = element.getValue();
+            }
         }
         return state;
     }
