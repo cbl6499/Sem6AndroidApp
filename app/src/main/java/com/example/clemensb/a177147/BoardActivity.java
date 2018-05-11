@@ -136,7 +136,36 @@ public class BoardActivity extends Activity {
 
         scoreView = findViewById(R.id.score);
         highScoreView = findViewById(R.id.highscore);
-        highScoreView.setText("99999");
+        //highScoreView.setText("99999");
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mUserRef = mRootRef.child("UserHighScore");
+        mUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
+                DataSnapshot snap = null;
+                for(DataSnapshot ds : childs){
+                    if(ds.getKey().equals(UserSessionManagement.getInstance().getUsername())){
+                        snap = ds;
+                    }
+                }
+                if(snap != null){
+                    Log.d("highscore", ""+(int)(long)snap.getValue());
+                    highScoreView.setText(""+(int)(long)snap.getValue());
+                } else {
+                    highScoreView.setText("0");
+                    Log.d("no highscore", "NO HIGHSCORE");
+                }
+                //System.out.println("Sorted: ");
+                //sortUsers();
+                //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //init board
 
        // GameState.getInstance().loadState();
