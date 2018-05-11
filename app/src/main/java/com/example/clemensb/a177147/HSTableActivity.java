@@ -37,8 +37,6 @@ public class HSTableActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println("TEST");
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hstable);
         users = new ArrayList<>();
@@ -79,8 +77,8 @@ public class HSTableActivity extends AppCompatActivity {
                 }
                 hsStringList = new String[size];
                 for(int i = 0; i < size; i++){
-                    hsStringList[i] = "Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
-                    System.out.println("Rank "  + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
+                    hsStringList[i] = getString(R.string.rankText) + " " + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                    System.out.println(getString(R.string.rankText) + " " + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
                 }
 
 

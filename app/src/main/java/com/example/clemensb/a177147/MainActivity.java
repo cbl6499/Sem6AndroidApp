@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
         styleButton = (Button) findViewById(R.id.styleButton);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            styleButton.setText("Night");
+            styleButton.setText(getString(R.string.nightText));
         } else{
-            styleButton.setText("Day");
+            styleButton.setText(getString(R.string.dayText));
         }
 
         mNotificationUtils = new NotificationUtils(this);

@@ -108,4 +108,7 @@
     <string name="backButton">Back</string>
     <string name="restartButton">Restart</string>
     <string name="scoreButton">Score</string>
+    <string name="dayText">Day</string>
+    <string name="nightText">Night</string>
+    <string name="rankText">Rank</string>
 </resources>
