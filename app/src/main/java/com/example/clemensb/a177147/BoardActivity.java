@@ -333,8 +333,8 @@ public class BoardActivity extends Activity {
         for(int i = 0; i < board2DArray.length; i++) {
             for (int j = board2DArray[i].length - 1; j > 0; j--) {
                 boolean merged = false;
-                if (board2DArray[i][j].getText().equals(board2DArray[i][j - 1].getText()) || isEmptyField(i, j - 1)) {
-                    merge(new Coordinate(i, j-1), new Coordinate(i, j));
+                if (board2DArray[i][j-1].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i, j-1)) {
+                    merge(new Coordinate(i, j), new Coordinate(i, j-1));
                     shifted = true;
                     merged = true;
                 }
@@ -348,9 +348,8 @@ public class BoardActivity extends Activity {
                             }
                         }
                     }
-                    if (board2DArray[i][j].getText().equals(board2DArray[i][j-1].getText()) || isEmptyField(i, j) && !merged) {
-                        merge(new Coordinate(i, j-1), new Coordinate(i, j));
-                       // shifted = true;
+                    if (board2DArray[i][j-1].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i, j-1) && !merged) {
+                        merge(new Coordinate(i, j), new Coordinate(i, j-1));
                     }
                 }
             }
@@ -366,7 +365,7 @@ public class BoardActivity extends Activity {
         for (int i = board2DArray.length-1; i > 0; i--) {
             for (int j = 0; j < board2DArray[i].length; j++) {
                 boolean merged = false;
-                if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i,j)) {
+                if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i-1,j)) {
                     merge(new Coordinate(i,j), new Coordinate(i-1,j));
                     shifted = true;
                     merged = true;
@@ -382,9 +381,8 @@ public class BoardActivity extends Activity {
                         }
                     }
                 }
-                if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i,j) && !merged) {
+                if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i-1,j) && !merged) {
                     merge(new Coordinate(i,j), new Coordinate(i-1,j));
-                    //shifted = true;
                 }
             }
         }
