@@ -517,7 +517,7 @@ public class BoardActivity extends Activity {
         });
 
         if(state.evaluateState() != 0){
-            Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
+            Intent intent = new Intent(BoardActivity.this, EvaluateActivity.class);
             startActivity(intent);
         } else {
             Log.d("Playing", "Keep going");
