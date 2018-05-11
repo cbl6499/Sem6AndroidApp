@@ -35,18 +35,6 @@
         <activity
             android:name=".GameModesActivity"
             android:label="177147" />
-        <activity
-            android:name=".StartActivity"
-            android:label="@string/title_activity_login">
-
-            <!--
-                <intent-filter>
-                <action android:name="android.intent.action.START" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
-        </activity>
         <activity android:name=".HSTableActivity" />
 
         <receiver
