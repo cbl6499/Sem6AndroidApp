@@ -199,7 +199,9 @@ public class BoardActivity extends Activity {
         });
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
-                finish();
+                Intent intent = new Intent(BoardActivity.this, GameModesActivity.class);
+                startActivity(intent);
+                //finish();
             }
         });
 
