@@ -166,6 +166,27 @@ public class BoardActivity extends Activity {
 
             }
         });
+        mUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
+                DataSnapshot snap = null;
+                for(DataSnapshot ds : childs){
+                    if(ds.getKey().equals(UserSessionManagement.getInstance().getUsername())){
+                        snap = ds;
+                    }
+                }
+                if(snap != null){
+                    Log.d("highscore", ""+(int)(long)snap.getValue());
+                    highScoreView.setText(""+(int)(long)snap.getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         //init board
 
        // GameState.getInstance().loadState();
@@ -464,6 +485,37 @@ public class BoardActivity extends Activity {
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mUserRef = mRootRef.child("GameState");
         mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin(), true));
+
+
+        final DatabaseReference mHighScoreUserRef = mRootRef.child("UserHighScore");
+        //mHighScoreUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue();
+        mHighScoreUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
+                DataSnapshot snap = null;
+                for(DataSnapshot ds : childs){
+                    if(ds.getKey().equals(UserSessionManagement.getInstance().getUsername())){
+                        snap = ds;
+                    }
+                }
+                if(snap != null){
+                    Log.d("highscore", ""+(int)(long)snap.getValue());
+                    if((int)(long)snap.getValue() < GameState.getInstance().getScore()){
+                        mHighScoreUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(GameState.getInstance().getScore());
+                    }
+                }
+                //System.out.println("Sorted: ");
+                //sortUsers();
+                //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         if(state.evaluateState() != 0){
             Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
             startActivity(intent);

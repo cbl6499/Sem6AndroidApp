@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/177147.iml" filepath="$PROJECT_DIR$/177147.iml" />
-      <module fileurl="file://D:\Schule\FHV\Semester6\Mobile\Sem6AndroidApp\.idea\177147.iml" filepath="D:\Schule\FHV\Semester6\Mobile\Sem6AndroidApp\.idea\177147.iml" />
-      <module fileurl="file://D:\Schule\FHV\Semester6\Mobile\Sem6AndroidApp\177147.iml" filepath="D:\Schule\FHV\Semester6\Mobile\Sem6AndroidApp\177147.iml" />
       <module fileurl="file://$PROJECT_DIR$/Sem6AndroidApp.iml" filepath="$PROJECT_DIR$/Sem6AndroidApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
