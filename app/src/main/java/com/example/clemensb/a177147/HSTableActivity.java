@@ -30,11 +30,12 @@ public class HSTableActivity extends AppCompatActivity {
     DatabaseReference mUserRef = mRootRef.child("UserHighScore");
     List<User> users;
     List<User> hsList;
-    ListView yourHS;
+    //ListView yourHS;
     ListView list;
     String [] hsStringList;
-    String [] yourHSList;
+    //String [] yourHSList;
     UserSessionManagement user;
+    TextView yourHS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +60,9 @@ public class HSTableActivity extends AppCompatActivity {
             }
         });
 
-        yourHS = (ListView)findViewById(R.id.hslistView);
+        //yourHS = (ListView)findViewById(R.id.hslistView);
         list = (ListView)findViewById(R.id.yourhslistView);
+        yourHS = (TextView)findViewById(R.id.yourHS);
 
         mUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,16 +84,15 @@ public class HSTableActivity extends AppCompatActivity {
                 int size;
                 for(int i = 0; i<users.size(); i++){
                     if(users.get(i).getUserName().equals(user.getUsername())){
-                        yourHSList = new String[1];
-                        yourHSList[0] = getString(R.string.rankText) + " " + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                        yourHS.setText( getString(R.string.rankText) + " " + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore());
                     }
                 }
 
-                if(yourHSList != null){
+                /*if(yourHSList != null){
                     List<String> listElementArray = new ArrayList<String>(Arrays.asList(yourHSList));
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(HSTableActivity.this, android.R.layout.simple_list_item_1, listElementArray);
                     yourHS.setAdapter(adapter);
-                }
+                }*/
 
                 if(users.size()>= 5){
                     size = 5;

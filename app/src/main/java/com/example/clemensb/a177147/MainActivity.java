@@ -206,8 +206,8 @@ public class MainActivity extends AppCompatActivity {
                 //android.os.Process.killProcess(android.os.Process.myPid());
                 //Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 //startActivity(intent);
-                //UserSignOutFunction();
-                String title = "This is a notification test";
+                UserSignOutFunction();
+                /*String title = "This is a notification test";
                 String author = "Goht di garnix a";
 
                 if(!title.isEmpty() && !author.isEmpty()) {
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                             getAndroidChannelNotification(title, "By " + author);
 
                     mNotificationUtils.getManager().notify(101, nb.build());
-                }
+                }*/
             }
         });
 
