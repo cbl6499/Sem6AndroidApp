@@ -37,6 +37,13 @@ public class HSTableActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.FeedActivityThemeDark);
+        } else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            setTheme(R.style.FeedActivityThemeLight);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hstable);
         users = new ArrayList<>();

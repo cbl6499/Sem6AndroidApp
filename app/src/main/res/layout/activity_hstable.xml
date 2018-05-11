@@ -4,8 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color5"
     tools:context="com.example.clemensb.a177147.HSActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:gravity="center"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="159dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/highScoreButton"
+        android:textAllCaps="true"
+        android:textSize="24dp"
+        android:gravity="center"
+        />
+    </LinearLayout>
 
     <ListView
         android:id="@+id/hslistView"
@@ -17,18 +34,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/yourhslistView" />
 
-    <ListView
-        android:id="@+id/yourhslistView"
-        android:layout_width="307dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="28dp"
-        android:textColor="@color/color5"
-        app:layout_constraintBottom_toTopOf="@+id/hslistView"
-        app:layout_constraintEnd_toEndOf="@+id/hslistView"
-        app:layout_constraintStart_toStartOf="@+id/hslistView"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/hsbackButton"
         android:layout_width="300dp"
@@ -38,5 +43,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/yourhslistView"
+        android:layout_width="307dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/color5"
+        app:layout_constraintBottom_toTopOf="@+id/hslistView"
+        app:layout_constraintEnd_toEndOf="@+id/hslistView"
+        app:layout_constraintHorizontal_bias="0.661"
+        app:layout_constraintStart_toStartOf="@+id/hslistView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
