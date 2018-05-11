@@ -10,7 +10,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="startButton">Start New Game</string>
     <string name="resumeButton">Resume Last Game</string>
-    <string name="highScoreButton">High Score</string>
+    <string name="highScoreButton">Highscore</string>
     <string name="inviteButton">Invite Friends</string>
     <string name="exitButton">Exit</string>
     <string name="signOutButton">Sign Out</string>

@@ -34,6 +34,7 @@ public class HSTableActivity extends AppCompatActivity {
     ListView list;
     String [] hsStringList;
     String [] yourHSList;
+    UserSessionManagement user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,8 @@ public class HSTableActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hstable);
         users = new ArrayList<>();
         hsList = new ArrayList<>();
+
+        user = UserSessionManagement.getInstance();
 
         Button backButton = (Button) findViewById(R.id.hsbackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +80,18 @@ public class HSTableActivity extends AppCompatActivity {
 
 
                 int size;
+                for(int i = 0; i<users.size(); i++){
+                    if(users.get(i).getUserName().equals(user.getUsername())){
+                        yourHSList[0] = getString(R.string.rankText) + " " + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
+                    }
+                }
+
+                if(yourHSList != null){
+                    List<String> listElementArray = new ArrayList<String>(Arrays.asList(yourHSList));
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(HSTableActivity.this, android.R.layout.simple_list_item_1, listElementArray);
+                    yourHS.setAdapter(adapter);
+                }
+
                 if(users.size()>= 5){
                     size = 5;
                 }else{
