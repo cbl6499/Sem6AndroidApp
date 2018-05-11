@@ -307,7 +307,7 @@ public class MainActivity extends AppCompatActivity {
 
                 user.setUserData(googleSignInAccount);
 
-                Toast.makeText(MainActivity.this, user.getName() + "  |  " + user.getEmail(), Toast.LENGTH_LONG).show();
+               // Toast.makeText(MainActivity.this, user.getName() + "  |  " + user.getEmail(), Toast.LENGTH_LONG).show();
 
                 mUserRef.child(UserSessionManagement.getInstance().getUsername()).child("loaded").setValue(false);
 

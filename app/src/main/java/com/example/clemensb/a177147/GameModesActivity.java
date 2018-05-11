@@ -35,7 +35,8 @@ public class GameModesActivity extends Activity {
         Button backButton = (Button) findViewById(R.id.backbutton);
         backButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
-                finish();
+                Intent intent = new Intent(GameModesActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
 
