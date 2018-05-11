@@ -504,6 +504,8 @@ public class BoardActivity extends Activity {
                     if((int)(long)snap.getValue() < GameState.getInstance().getScore()){
                         mHighScoreUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(GameState.getInstance().getScore());
                     }
+                } else {
+                    mHighScoreUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(GameState.getInstance().getScore());
                 }
                 //System.out.println("Sorted: ");
                 //sortUsers();
