@@ -3,6 +3,9 @@ package com.example.clemensb.a177147;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -14,5 +17,6 @@ public class InfoReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         Toast.makeText(context, "Battery is low! Please charge your phone!" , Toast.LENGTH_LONG).show();
+
     }
 }
