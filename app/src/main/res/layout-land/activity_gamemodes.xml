@@ -33,13 +33,13 @@
         android:id="@+id/classic"
         android:layout_width="300dp"
         android:layout_height="75dp"
-        android:text="Classic" />
+        android:text="@string/classicMode" />
 
         <Button
             android:id="@+id/backbutton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="Back" />
+            android:text="@string/backButton" />
 
     </LinearLayout>
 </LinearLayout>

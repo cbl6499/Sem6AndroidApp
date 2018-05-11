@@ -8,4 +8,14 @@
     <string name="error_invalid_password">Passwort zu kurz</string>
     <string name="error_incorrect_password">Passwort nicht korrekt</string>
     <string name="error_field_required">Dies ist ein Pflichtfeld</string>
+    <string name="startButton">Neues Spiel starten</string>
+    <string name="resumeButton">Altes Spiel fortsetzen</string>
+    <string name="inviteButton">Freunde einladen</string>
+    <string name="exitButton">Schließen</string>
+    <string name="signOutButton">Ausloggen</string>
+    <string name="highScoreButton">Highscore</string>
+    <string name="classicMode">Klassisch</string>
+    <string name="backButton">Zurück</string>
+    <string name="restartButton">Neustart</string>
+    <string name="scoreButton">Punktezahl</string>
 </resources>
