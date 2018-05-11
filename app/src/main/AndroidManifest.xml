@@ -48,7 +48,6 @@
             -->
         </activity>
         <activity android:name=".HSTableActivity" />
-        <activity android:name=".HSActivity"/>
 
         <receiver
             android:name=".InfoReceiver"

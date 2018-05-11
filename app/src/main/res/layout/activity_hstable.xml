@@ -8,11 +8,17 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
         android:layout_weight="40"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/hsbackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="159dp"
@@ -22,39 +28,45 @@
             android:text="@string/highScoreButton"
             android:textAllCaps="true"
             android:textSize="24dp" />
-    </LinearLayout>
 
-    <ListView
-        android:id="@+id/hslistView"
-        android:layout_width="242dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="130dp"
-        android:layout_marginEnd="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/yourhslistView" />
+        <TextView
+            android:layout_width="159dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="340dp"
+            android:gravity="center"
+            android:text="@string/yourHighscore"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/yourHS"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text=""
+            android:textSize="16dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/hsbackButton"
         android:layout_width="300dp"
-        android:layout_height="75dp"
+        android:layout_height="59dp"
         android:layout_marginBottom="16dp"
         android:text="@string/backButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ListView
         android:id="@+id/yourhslistView"
-        android:layout_width="307dp"
-        android:layout_height="257dp"
-        android:layout_marginBottom="30dp"
+        android:layout_width="0dp"
+        android:layout_height="254dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginStart="38dp"
         android:layout_marginTop="100dp"
         android:textColor="@color/color5"
-        app:layout_constraintBottom_toTopOf="@+id/hslistView"
-        app:layout_constraintEnd_toEndOf="@+id/hslistView"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="@+id/hslistView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
