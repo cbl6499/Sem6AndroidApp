@@ -82,6 +82,7 @@ public class HSTableActivity extends AppCompatActivity {
                 int size;
                 for(int i = 0; i<users.size(); i++){
                     if(users.get(i).getUserName().equals(user.getUsername())){
+                        yourHSList = new String[1];
                         yourHSList[0] = getString(R.string.rankText) + " " + (i+1) + " : " + users.get(i).getUserName() + " : " + users.get(i).getScore();
                     }
                 }
