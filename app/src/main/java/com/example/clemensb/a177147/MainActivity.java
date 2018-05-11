@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     // Google API Client object.
     public GoogleApiClient googleApiClient;
 
-    private static NotificationUtils mNotificationUtils;
 
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mUserRef = mRootRef.child("GameState");
@@ -103,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
             styleButton.setText(getString(R.string.dayText));
         }
 
-        mNotificationUtils = new NotificationUtils(this);
 
 
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
@@ -256,17 +254,6 @@ public class MainActivity extends AppCompatActivity {
         return state;
     }
 
-    public static void sendNewHighScoreNotification(int highscore){
-        String title = "You have a new HighScore!";
-        String author = "177147";
-
-        if(!title.isEmpty() && !author.isEmpty()) {
-            Notification.Builder nb = mNotificationUtils.
-                    getAndroidChannelNotification(title, "New Highscore: " + highscore);
-
-            mNotificationUtils.getManager().notify(101, nb.build());
-        }
-    }
 
     public void check() {
         if(user.getLogin()){

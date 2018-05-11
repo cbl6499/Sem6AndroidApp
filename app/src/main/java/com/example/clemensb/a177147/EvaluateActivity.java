@@ -1,5 +1,6 @@
 package com.example.clemensb.a177147;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ public class EvaluateActivity extends AppCompatActivity {
     Button resumeButton;
     Button exitButton;
 
+    private NotificationUtils mNotificationUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,7 @@ public class EvaluateActivity extends AppCompatActivity {
             resumeButton.setText("Back to game");
         }
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        mNotificationUtils = new NotificationUtils(this);
         final DatabaseReference mUserRef = mRootRef.child("UserHighScore");
         mUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -53,7 +57,15 @@ public class EvaluateActivity extends AppCompatActivity {
                     Log.d("highscore", ""+(int)(long)snap.getValue());
                     if((int)(long)snap.getValue() <= GameState.getInstance().getScore()){
                         mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(GameState.getInstance().getScore());
-                        MainActivity.sendNewHighScoreNotification(GameState.getInstance().getScore());
+
+                        String title = "You have a new HighScore!";
+                        String author = "177147";
+                        if(!title.isEmpty() && !author.isEmpty()) {
+                            Notification.Builder nb = mNotificationUtils.
+                                    getAndroidChannelNotification(title, "New Highscore: " + GameState.getInstance().getScore());
+
+                            mNotificationUtils.getManager().notify(101, nb.build());
+                        }
                     }
                 }
                 //System.out.println("Sorted: ");
