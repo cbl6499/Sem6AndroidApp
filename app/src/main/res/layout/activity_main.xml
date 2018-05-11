@@ -42,37 +42,37 @@
             android:id="@+id/startButton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="Start new Game" />
+            android:text="@string/startButton" />
 
         <Button
             android:id="@+id/resumeButton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="Resume last Game" />
+            android:text="@string/resumeButton" />
 
         <Button
             android:id="@+id/highscoreButton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="High Score" />
+            android:text="@string/highScoreButton" />
 
         <Button
             android:id="@+id/inviteButton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="Invite Friends" />
+            android:text="@string/inviteButton" />
 
         <Button
             android:id="@+id/exitButton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="Exit" />
+            android:text="@string/exitButton" />
 
         <Button
             android:id="@+id/logoutButton"
             android:layout_width="300dp"
             android:layout_height="75dp"
-            android:text="Sign Out" />
+            android:text="@string/signOutButton" />
 
     </LinearLayout>
 </LinearLayout>

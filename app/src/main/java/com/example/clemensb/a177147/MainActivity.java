@@ -69,15 +69,9 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mUserRef = mRootRef.child("GameState");
 
-    // Sing out button.
-
     // Google Sign In button .
     com.google.android.gms.common.SignInButton signInButton;
 
-    // TextView to Show Login User Email and Name.
-    //TextView LoginUserName, LoginUserEmail;
-
-    //
 
     Button hsButton, clickButton, exitButton, resumeButton, logoutButton, inviteButton, styleButton;
 
@@ -104,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
         styleButton = (Button) findViewById(R.id.styleButton);
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            styleButton.setText("Night");
+            styleButton.setText(getString(R.string.nightText));
         } else{
-            styleButton.setText("Day");
+            styleButton.setText(getString(R.string.dayText));
         }
 
         mNotificationUtils = new NotificationUtils(this);

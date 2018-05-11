@@ -8,4 +8,17 @@
     <string name="error_field_required">This field is required</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="startButton">Start New Game</string>
+    <string name="resumeButton">Resume Last Game</string>
+    <string name="highScoreButton">High Score</string>
+    <string name="inviteButton">Invite Friends</string>
+    <string name="exitButton">Exit</string>
+    <string name="signOutButton">Sign Out</string>
+    <string name="classicMode">Classic</string>
+    <string name="backButton">Back</string>
+    <string name="restartButton">Restart</string>
+    <string name="scoreButton">Score</string>
+    <string name="dayText">Day</string>
+    <string name="nightText">Night</string>
+    <string name="rankText">Rank</string>
 </resources>
