@@ -39,8 +39,9 @@ public class EvaluateActivity extends AppCompatActivity {
         }
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(EvaluateActivity.this, BoardActivity.class);
-                startActivity(intent);
+                finish();
+                //Intent intent = new Intent(EvaluateActivity.this, BoardActivity.class);
+                //startActivity(intent);
             }
         });
         exitButton.setOnClickListener(new View.OnClickListener() {

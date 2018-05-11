@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 
+import domain.GameState;
+
 public class GameModesActivity extends Activity {
 
     @Override
@@ -24,6 +26,7 @@ public class GameModesActivity extends Activity {
         Button clickButton = (Button) findViewById(R.id.classic);
         clickButton.setOnClickListener(new View.OnClickListener() {
             public void onClick (View v){
+                GameState.deleteState();
                 Intent intent = new Intent(GameModesActivity.this, BoardActivity.class);
                 startActivity(intent);
             }
