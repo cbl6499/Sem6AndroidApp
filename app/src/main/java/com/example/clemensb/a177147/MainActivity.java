@@ -40,9 +40,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import domain.GameState;
@@ -140,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Creating and Configuring Google Api Client.
         googleApiClient = new GoogleApiClient.Builder(MainActivity.this)
-                .enableAutoManage(MainActivity.this, new GoogleApiClient.OnConnectionFailedListener() {
+                .enableAutoManage(MainActivity.this, new GoogleApiClient.   OnConnectionFailedListener() {
                     @Override
                     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
@@ -169,13 +172,35 @@ public class MainActivity extends AppCompatActivity {
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //GameState.getInstance().loadState();
+                mUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        GameState state = GameState.getInstance();
+                        Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
+                        DataSnapshot snap = null;
+                        for(DataSnapshot ds : childs){
+                            if(ds.getKey().equals(UserSessionManagement.getInstance().getUsername())){
+                                snap = ds;
+                            }
+                        }
+                        BoardActivity.PersistentState loadedState = dataSnapshot.getValue(BoardActivity.PersistentState.class);
+                        state.setScore(snap.getValue(BoardActivity.PersistentState.class).getCurrentScore());
+                        state.setState(convertListToStringArray(snap.getValue(BoardActivity.PersistentState.class).getState()));
+                        state.setWon(snap.getValue(BoardActivity.PersistentState.class).getWin());
+                        Intent intent = new Intent(MainActivity.this, BoardActivity.class);
+                        startActivity(intent);
+                    }
 
-                Intent intent = new Intent(MainActivity.this, BoardActivity.class);
-                startActivity(intent);
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
         });
 
-                hsButton.setOnClickListener(new View.OnClickListener() {
+        hsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, HSTableActivity.class);
                 startActivity(intent);
@@ -225,6 +250,16 @@ public class MainActivity extends AppCompatActivity {
 
         //mUserRef.child(UserSessionManagement.getInstance().getUsername()).child("loaded").setValue(true);
 
+    }
+
+    public String[][] convertListToStringArray(List<BoardActivity.ListElement> list){
+        String[][] state = new String[4][4];
+        if(list != null) {
+            for (BoardActivity.ListElement element : list) {
+                state[element.getCoordinate().getX()][element.getCoordinate().getY()] = element.getValue();
+            }
+        }
+        return state;
     }
 
     public void check() {

@@ -138,25 +138,8 @@ public class BoardActivity extends Activity {
         highScoreView = findViewById(R.id.highscore);
         highScoreView.setText("99999");
         //init board
-      /*  DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mUserRef = mRootRef.child("GameState");
-        mUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("Loading", "Loading in constructor");
-                GameState currentState = GameState.getInstance();
-                currentState.setScore(dataSnapshot.getValue(BoardActivity.PersistentState.class).getCurrentScore());
-                currentState.setState(GameState.getInstance().convertListToStringArray(dataSnapshot.getValue(BoardActivity.PersistentState.class).getState()));
-                currentState.setWon(dataSnapshot.getValue(BoardActivity.PersistentState.class).getWin());
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
-        //initBoard();
-        GameState.getInstance().loadState();
+       // GameState.getInstance().loadState();
         recoverState();
         //Button Click
         resetButton.setOnClickListener(new View.OnClickListener() {
@@ -263,18 +246,19 @@ public class BoardActivity extends Activity {
                     merged = true;
                 }
                 if (needsShift(board2DArray,j)) {
-                    shifted = true;
+                    //shifted = true;
                     for(int k = 0; k < board2DArray.length; k++){
                         if (isEmptyField(k,j)) {
                             if(k < board2DArray[k].length - 1){
                                 shift(new Coordinate(k, j), new Coordinate(k+1, j));
+                                shifted = true;
                             }
                         }
                     }
                 }
                 if (board2DArray[i][j].getText().equals(board2DArray[i+1][j].getText()) || isEmptyField(i+1,j) && !merged) {
                     merge(new Coordinate(i,j), new Coordinate(i+1,j));
-                    shifted = true;
+
                 }
             }
         }
@@ -294,17 +278,18 @@ public class BoardActivity extends Activity {
                     merged = true;
                 }
                 if(needsShift(board2DArray[i])){
-                    shifted = true;
+                    //shifted = true;
                     for(int k = 0; k < board2DArray[i].length; k++){
                         if (isEmptyField(i,k)) {
                             if(k < board2DArray[i].length - 1){
                                 shift(new Coordinate(i, k), new Coordinate(i, k+1));
+                                shifted = true;
                             }
                         }
                     }
                     if (board2DArray[i][j].getText().equals(board2DArray[i][j+1].getText()) || isEmptyField(i, j+1) && !merged) {
                         merge(new Coordinate(i, j), new Coordinate(i, j+1));
-                        shifted = true;
+
                     }
                 }
             }
@@ -325,17 +310,18 @@ public class BoardActivity extends Activity {
                     merged = true;
                 }
                 if(needsShift(board2DArray[i])){
-                    shifted = true;
+                    //shifted = true;
                     for(int k = board2DArray[i].length-1; k > 0; k--){
                         if (isEmptyField(i,k)) {
-                            if(k > 0){
+                            if(k < board2DArray[i].length){//k > 0){
                                 shift(new Coordinate(i, k), new Coordinate(i, k-1));
+                                shifted = true;
                             }
                         }
                     }
                     if (board2DArray[i][j].getText().equals(board2DArray[i][j-1].getText()) || isEmptyField(i, j) && !merged) {
                         merge(new Coordinate(i, j-1), new Coordinate(i, j));
-                        shifted = true;
+                       // shifted = true;
                     }
                 }
             }
@@ -357,18 +343,19 @@ public class BoardActivity extends Activity {
                     merged = true;
                 }
                 if (needsShift(board2DArray,j)) {
-                    shifted = true;
+                    //shifted = true;
                     for(int k = board2DArray.length-1; k > 0; k--){
                         if (isEmptyField(k,j)) {
-                            if(k < board2DArray[k].length - 1){
+                            if(k < board2DArray[k].length){
                                 shift(new Coordinate(k, j), new Coordinate(k-1, j));
+                                shifted = true;
                             }
                         }
                     }
                 }
                 if (board2DArray[i-1][j].getText().equals(board2DArray[i][j].getText()) || isEmptyField(i,j) && !merged) {
                     merge(new Coordinate(i,j), new Coordinate(i-1,j));
-                    shifted = true;
+                    //shifted = true;
                 }
             }
         }
@@ -447,21 +434,6 @@ public class BoardActivity extends Activity {
         String[][] currentState = convertStateToStringArray();
         state.setState(currentState);
         state.setScore(score);
-        /*int evaluate = state.evaluateState();
-        if(evaluate == 1){
-            Intent intent = new Intent(BoardActivity.this, EvaluateActivity.class);
-            startActivity(intent);
-            //display win
-            Log.d("Win", "You win");
-        } else if(evaluate == -1){
-            //display lose
-            Intent intent = new Intent(BoardActivity.this, BoardActivity.class);
-            startActivity(intent);
-            Log.d("Lost", "You lost");
-        } else {
-            Log.d("Playing", "Keep going");
-            //keep going
-        }*/
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mUserRef = mRootRef.child("GameState");
         mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin(), true));
@@ -520,55 +492,54 @@ public class BoardActivity extends Activity {
     }
 
     public static class PersistentState{
-        List<ListElement> _state;
-        int _score;
-        boolean _won;
-        boolean _loaded = false;
+        List<ListElement> state;
+        int score;
+        boolean win;
+        boolean loaded = false;
 
         public PersistentState(){
 
         }
+
         public PersistentState(List<ListElement> state, int score, boolean won, boolean loaded){
-            _state = state;
-            _score = score;
-            _won = won;
-            _loaded = loaded;
+            this.state = state;
+            this.score = score;
+            this.win = won;
+            this.loaded = loaded;
         }
 
         public List<ListElement> getState(){
-            return _state;
+            return this.state;
         }
 
         public int getCurrentScore(){
-            return _score;
+            return this.score;
         }
 
         public boolean getLoaded(){
-            return _loaded;
+            return this.loaded;
         }
+
         public void setLoaded(boolean loaded){
-            _loaded = loaded;
+            this.loaded = loaded;
         }
 
         public boolean getWin(){
-            return _won;
+            return this.win;
         }
 
         public void setState(List<ListElement> state){
-            _state = state;
+            this.state = state;
         }
 
         public void setCurrentScore(int score){
-            _score = score;
+            this.score = score;
         }
 
         public void setWin(boolean win){
-            _won = win;
+            this.win = win;
         }
 
-        public void setWon(boolean win){
-            _won = win;
-        }
     }
 
     public static class ListElement{
