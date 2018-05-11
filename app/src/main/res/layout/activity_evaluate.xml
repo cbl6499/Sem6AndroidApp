@@ -1,18 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EvaluateActivity">
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    android:orientation="vertical"
+    android:layout_weight="100"
+    tools:context="com.example.clemensb.a177147.EvaluateActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="40"
+        android:gravity="center"
+
+        android:orientation="vertical">
     <TextView
         android:id="@+id/textView"
         android:layout_width="305dp"
         android:layout_height="247dp"
+        android:textAlignment="center"
         tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="63dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="63dp"/>
 
     <Button
         android:id="@+id/resumeButton"
@@ -20,8 +33,7 @@
         android:layout_height="wrap_content"
         android:text="Resume"
         tools:layout_editor_absoluteX="47dp"
-        tools:layout_editor_absoluteY="329dp"
-        tools:ignore="MissingConstraints" />
+        tools:layout_editor_absoluteY="329dp"/>
 
     <Button
         android:id="@+id/exitButton"
@@ -29,6 +41,6 @@
         android:layout_height="wrap_content"
         android:text="Exit"
         tools:layout_editor_absoluteX="263dp"
-        tools:layout_editor_absoluteY="329dp"
-        tools:ignore="MissingConstraints" />
-</android.support.constraint.ConstraintLayout>
+        tools:layout_editor_absoluteY="329dp" />
+    </LinearLayout>
+</LinearLayout>

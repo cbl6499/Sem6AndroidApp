@@ -5,7 +5,7 @@ public class GameState {
     private String[][] state;
     private int score;
     private static GameState instance;
-    private static int FINAL_SCORE = 117147;
+    private static String FINAL_SCORE = "177147";
     boolean won = false;
 
     public static GameState getInstance(){
@@ -75,7 +75,7 @@ public class GameState {
         if(!won){
             for(int i = 0; i < state.length; i++){
                 for(int j = 0; j < state[i].length; j++){
-                    if(state[i][j].equals(FINAL_SCORE+"")) {
+                    if(state[i][j].equals(FINAL_SCORE)) {
                         won = true;
                         return 1;
                     }

@@ -37,6 +37,35 @@ public class EvaluateActivity extends AppCompatActivity {
             evaluateText.setText("OMG, you lost" + "\nYou score: " + GameState.getInstance().getScore());
             resumeButton.setText("Back to game");
         }
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference mUserRef = mRootRef.child("UserHighScore");
+        mUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
+                DataSnapshot snap = null;
+                for(DataSnapshot ds : childs){
+                    if(ds.getKey().equals(UserSessionManagement.getInstance().getUsername())){
+                        snap = ds;
+                    }
+                }
+                if(snap != null){
+                    Log.d("highscore", ""+(int)(long)snap.getValue());
+                    if((int)(long)snap.getValue() <= GameState.getInstance().getScore()){
+                        mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(GameState.getInstance().getScore());
+                        MainActivity.sendNewHighScoreNotification(GameState.getInstance().getScore());
+                    }
+                }
+                //System.out.println("Sorted: ");
+                //sortUsers();
+                //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         resumeButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
@@ -46,35 +75,7 @@ public class EvaluateActivity extends AppCompatActivity {
         });
         exitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-                final DatabaseReference mUserRef = mRootRef.child("UserHighScore");
-                mUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Iterable<DataSnapshot> childs = dataSnapshot.getChildren();
-                        DataSnapshot snap = null;
-                        for(DataSnapshot ds : childs){
-                            if(ds.getKey().equals(UserSessionManagement.getInstance().getUsername())){
-                                snap = ds;
-                            }
-                        }
-                        if(snap != null){
-                            Log.d("highscore", ""+(int)(long)snap.getValue());
-                            if((int)(long)snap.getValue() < GameState.getInstance().getScore()){
-                                mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(GameState.getInstance().getScore());
-                                MainActivity.sendNewHighScoreNotification(GameState.getInstance().getScore());
-                            }
-                        }
-                        //System.out.println("Sorted: ");
-                        //sortUsers();
-                        //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
                 Intent intent = new Intent(EvaluateActivity.this, MainActivity.class);
                 startActivity(intent);
             }

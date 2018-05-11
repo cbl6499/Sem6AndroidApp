@@ -1,5 +1,6 @@
 package com.example.clemensb.a177147;
 
+import android.app.Notification;
 import android.support.annotation.NonNull;
 
 /**
@@ -45,4 +46,6 @@ public class User implements Comparable<User>{
     public int compareTo(@NonNull User user) {
         return user.score - score;
     }
+
+
 }
