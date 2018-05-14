@@ -25,7 +25,6 @@ import java.util.List;
 
 public class HSTableActivity extends AppCompatActivity {
 
-
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mUserRef = mRootRef.child("UserHighScore");
     List<User> users;
@@ -36,7 +35,6 @@ public class HSTableActivity extends AppCompatActivity {
     //String [] yourHSList;
     UserSessionManagement user;
     TextView yourHS;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -121,5 +119,7 @@ public class HSTableActivity extends AppCompatActivity {
     public void sortUsers(){
         Collections.sort(users);
     }
+
+
 
 }

@@ -484,13 +484,13 @@ public class BoardActivity extends Activity {
         String[][] currentState = convertStateToStringArray();
         state.setState(currentState);
         state.setScore(score);
+        String username = UserSessionManagement.getInstance().getUsername();
         DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference mUserRef = mRootRef.child("GameState");
-        mUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin(), true));
+        mUserRef.child(username).setValue(new PersistentState(convertArrayToList(), GameState.getInstance().getScore(), GameState.getInstance().getWin(), true));
 
 
         final DatabaseReference mHighScoreUserRef = mRootRef.child("UserHighScore");
-        //mHighScoreUserRef.child(UserSessionManagement.getInstance().getUsername()).setValue();
         mHighScoreUserRef.orderByChild(UserSessionManagement.getInstance().getName()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

@@ -68,9 +68,6 @@ public class EvaluateActivity extends AppCompatActivity {
                         }
                     }
                 }
-                //System.out.println("Sorted: ");
-                //sortUsers();
-                //System.out.println("Datasnapshot: " + dataSnapshot.getValue());
             }
 
             @Override
